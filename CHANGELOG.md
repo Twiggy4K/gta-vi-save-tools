@@ -89,3 +89,10 @@ Dates use America/Chicago. This repository begins as an archive of earlier local
 ### Website workflow clarification
 
 Documented the observed Add-to-profile byte-order mismatch, conditional Dashboard Swap Endian correction, Previous/New Account ID check, and mandatory decrypted-return comparison. Local GarlicMgr behavior remains distinct.
+
+## 0.4.0-beta.1
+
+- Recorded successful controlled retail PS5 public-workflow loading and save/reload persistence.
+- Replaced temporary blanket restoration warnings with sample-scoped validation.
+- Clarified website Swap Endian, separate attempt folders, target-balance checks and encrypted SAVEDATASARC container selection.
+- Money algorithms unchanged; broader compatibility remains experimental.

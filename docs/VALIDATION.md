@@ -63,3 +63,7 @@ User screenshots document Dashboard Swap Endian, equal Previous/New Account ID o
 ## Failed gameplay acceptance — 2026-11-25
 
 User reports GTA VI rejected the restored browser-processed generalized editor output with Could not load, despite a successful decrypted-return comparison. Cause undetermined: game-level reconstruction, edit consistency, container/transfer selection and other dependencies require isolation. No further automatic restoration. Public warning added.
+
+## Confirmed public-workflow PS5 acceptance — 2026-11-25
+
+A controlled attempt used separate original, edited, encrypted and verification folders. Exact returned JSAV and original account/support files matched. Verified targets: cash 19,999; checking 1,999,999; Family Savings 1,000,000. The maintainer supplied an in-game cash/checking screenshot and then confirmed the requested savings/save/reload checks. Browser profile Swap Endian was used after confirming byte-order reversal. The encrypted SAVEDATASARC0011 container, not decrypted SARC0011, is required for transfer. This supersedes the temporary blanket restoration warning, not the historical record of earlier failures. The precise cause of each earlier failed attempt is not established. Coverage remains one tested PS5 save/console; no general Xbox money editing or universal compatibility claim.

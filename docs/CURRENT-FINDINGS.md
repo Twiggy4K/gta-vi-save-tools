@@ -50,3 +50,7 @@ The new decoded editor is runnable with Node/Windows and requires no private cod
 
 Online follow-up: the owner-approved slot-11 encrypt/decrypt verification and GUI orchestration passed after correcting account wire-byte ordering; exact game data and original account/support files were checked. No restoration was performed. See VALIDATION.md and the decoded-editor guide; earlier statements that only mock testing existed are historical and superseded by this record.
 
+
+## Confirmed public-workflow PS5 acceptance — 2026-11-25
+
+A controlled attempt used separate original, edited, encrypted and verification folders. Exact returned JSAV and original account/support files matched. Verified targets: cash 19,999; checking 1,999,999; Family Savings 1,000,000. The maintainer supplied an in-game cash/checking screenshot and then confirmed the requested savings/save/reload checks. Browser profile Swap Endian was used after confirming byte-order reversal. The encrypted SAVEDATASARC0011 container, not decrypted SARC0011, is required for transfer. This supersedes the temporary blanket restoration warning, not the historical record of earlier failures. The precise cause of each earlier failed attempt is not established. Coverage remains one tested PS5 save/console; no general Xbox money editing or universal compatibility claim.

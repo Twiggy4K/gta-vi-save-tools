@@ -10,7 +10,7 @@ Accounts are discovered by item/root/parent relationships across inventories, no
 
 No full private sample or account identity is included. Every user must supply their own correctly decoded save and matching metadata. ZIP packaging preserves that user's original export and replaces only the selected game file. Such output is private and should not be posted publicly.
 
-Browser processing is manual: sign in to GarlicSaves, upload your own ZIP, and compare a decrypted return in the editor. No key prompt, automatic upload or verified-container-path claim remains. Ordinary website compatibility is pending an end-to-end test.
+Browser processing is manual: sign in to GarlicSaves, upload your own ZIP, and compare a decrypted return in the editor. No key prompt, automatic upload or verified-container-path claim remains. One controlled PS5 website-path load/save/reload test passed.
 
 The older workshop local-ASAV path still needs undistributed runtime inputs. That does not affect this decoded writer, but means this is not a self-contained protected-ASAV codec release.
 
@@ -20,10 +20,10 @@ Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-cli
 
 ### 0.3.2 browser handoff correction
 
-The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. Browser end-to-end compatibility remains unverified. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.
+The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. One controlled PS5 website-path load/save/reload test passed. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.
 
 ### Website account-profile selection
 
-Before encrypting, add/save the profile offered when decrypting the original console export, and select the corresponding profile on Encrypt. Do not assume a previously stored profile is correct. Byte-reversed duplicate profiles occurred in testing; stop on mismatched account metadata rather than guessing. Follow the profile troubleshooting and exact-download round-trip steps in [the guide](../docs/DECODED-EDITOR-GUIDE.md). A single browser round trip passed content/account checks; gameplay testing remains separate.
+Before encrypting, add/save the profile offered when decrypting the original console export, and select the corresponding profile on Encrypt. Do not assume a previously stored profile is correct. Byte-reversed duplicate profiles occurred in testing; stop on mismatched account metadata rather than guessing. Follow the profile troubleshooting and exact-download round-trip steps in [the guide](../docs/DECODED-EDITOR-GUIDE.md). The controlled PS5 browser-path test also passed in-game loading and user-reported save/reload persistence.
 
 **Website profile warning:** Add to profile may save the ID in reversed byte order. Compare with the original decrypt job; use Dashboard → profile three-dot menu → **Swap Endian** only when that specific reversal is confirmed. Re-encrypt and verify a decrypted return. See the detailed guide; this was not observed as necessary in our local GarlicMgr tests.

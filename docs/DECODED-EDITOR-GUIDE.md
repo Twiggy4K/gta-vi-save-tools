@@ -1,4 +1,4 @@
-> **RESTORATION WARNING — 2026-11-25:** A user tested the generalized editor + GarlicSaves website encryption path and GTA VI rejected the restored save with “Couldn’t load.” Successful decrypted-return comparison does not establish valid game-level reconstruction or gameplay acceptance. Do not restore outputs from this path pending diagnosis. Preserve original/recovery saves. Earlier legacy local-workflow successes do not validate this new path.
+> **PS5 workflow validated on one tested save — 2026-11-25:** The maintainer confirmed the public decoded editor → GarlicSaves website encryption → GarlicTransfer workflow loaded the intended balances in-game and preserved them after saving and reloading. This is one-console/sample evidence, not universal compatibility. Keep untouched backups and verify every return.
 
 # Decoded save editor: step by step
 
@@ -6,7 +6,7 @@
 
 It changes supported money structures in an already decoded save, entirely on your PC. The Windows x64 portable download includes Node.js. No separate Node installation, game executable or private research files are needed. Source-only downloads require Node.js 22+.
 
-**The exported JSAV/ZIP is not ready to restore to your PS5.** Game-level encoding and PlayStation container encryption remain separate. A processing service must explicitly support the decoded format. The optional online route passed one consented live encrypt/decrypt verification, including original account metadata. That is not a new gameplay/restoration test.
+**The exported JSAV/ZIP is not ready to restore to your PS5.** Game-level encoding and PlayStation container encryption remain separate. A processing service must explicitly support the decoded format. The optional online route passed one consented live encrypt/decrypt verification, including original account metadata. A subsequent controlled browser-path PS5 test loaded the intended balances and preserved them after saving and reloading.
 
 ## Open and inspect
 
@@ -45,11 +45,11 @@ The writer verifies the edited document and related money structures. It appends
 
 Our browser test produced two profiles whose account IDs were byte-reversed versions of each other. Selecting one changed the original ACCOUNT_ID bytes; selecting the other preserved them. This is an observed format/profile ambiguity, **not proof that the user made a mistake**. Do not guess, reverse an ID manually, or choose by a profile name's suffix. Stop on an account mismatch and compare against the original save's indexed ACCOUNT_ID field before retrying. Never restore the rejected container. Preserve your untouched local/cloud backups while cleaning up test downloads.
 
-A browser encrypt/decrypt round trip has now preserved the intended game data, original param.sfo, keystone and icon on one tested slot. Folder names and processing sidecars changed. This is one tested case, not universal compatibility or gameplay acceptance. The editor performs no upload or console restoration; manual website uploads share game/account metadata with that service.
+A browser encrypt/decrypt round trip has now preserved the intended game data, original param.sfo, keystone and icon on one tested slot. Folder names and processing sidecars changed. This is one tested case; subsequent gameplay loading/save/reload was confirmed for that case, not universal compatibility. The editor performs no upload or console restoration; manual website uploads share game/account metadata with that service.
 
 ## What remains experimental
 
-The writer now avoids fixed inventory positions and original balances, but game semantics can differ by build and progression. The recognized item/slot specifications are not a proof that every save is supported. Reported PS5 gameplay tests and external Xbox-derived PC load/save/reload tests were conducted on specific earlier cases; they are not gameplay acceptance of this new generalized writer on everyone's saves.
+The writer now avoids fixed inventory positions and original balances, but game semantics can differ by build and progression. The recognized item/slot specifications are not a proof that every save is supported. Reported PS5 gameplay tests and external Xbox-derived PC load/save/reload tests were conducted on specific earlier cases; the newly confirmed generalized browser-path result covers one PS5 save, not everyone's saves.
 
 The conservative 2M checking and 1M savings caps are editor policies. We are not raising them based on screenshots alone. The local protected-ASAV codec still requires private runtime material; only the decoded writer is independent of those inputs today.
 
@@ -59,7 +59,7 @@ Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-cli
 
 ### 0.3.2 browser handoff correction
 
-The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. Browser end-to-end compatibility remains unverified. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.
+The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. The controlled browser-path PS5 test subsequently passed loading and user-reported save/reload persistence. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.
 
 ### Website profile ID order: Swap Endian
 
@@ -74,4 +74,18 @@ If this happens:
 5. For a same-account edit, the completed job's **Previous Account ID** and **New Account ID** should agree. If they differ, stop.
 6. Download the encrypted result, decrypt a copy of that exact download, and run **Check decrypted return ZIP**. Require a pass before any restoration test; matching displayed IDs alone is insufficient.
 
-After this correction, our tested browser round trip passed the editor's game-data and original account/support comparison. This does not establish universal website behavior or gameplay acceptance. We did **not** observe this correction being necessary in our earlier local, jailbroken-PS5 GarlicMgr workflow. Do not apply a website-profile workaround automatically to local GarlicMgr.
+After this correction, our tested browser round trip passed the editor's game-data and original account/support comparison. The subsequent controlled gameplay test passed; this does not establish universal website behavior or acceptance of other saves. We did **not** observe this correction being necessary in our earlier local, jailbroken-PS5 GarlicMgr workflow. Do not apply a website-profile workaround automatically to local GarlicMgr.
+
+## Transfer the correct file and test persistence
+
+1. Keep untouched console/cloud backups. Use separate **Original**, **Edited**, **Encrypted**, and **Verification** folders for each attempt.
+2. Confirm the editor export actually has the intended new balances. A no-op export changes nothing.
+3. After the decrypted-return comparison passes, extract the encrypted website download from **Encrypted**.
+4. In GarlicTransfer, select the intended save slot, choose **Replace with another save**, and select the extensionless **SAVEDATASARC0011** encrypted container (slot 11 example). **SARC0011** from a decrypted ZIP is the game file and is NOT the transfer container. Do not select a decrypted ZIP or files from Verification.
+5. Review the target console/profile and upload scope before uploading. GarlicTransfer can replace existing saves; retain all backups.
+6. Manually load the intended slot in-game rather than its autosave. Confirm cash, shared checking and Family Savings. Save separately, reload, and confirm persistence.
+7. If loading or balances fail, stop; retain all paired files for diagnosis and use your known-good recovery copy. A checker pass is not a guarantee of game acceptance.
+
+### Completed controlled acceptance test
+
+The confirmed target was 19,999 cash, 1,999,999 shared checking and 1,000,000 Family Savings. The screenshot shows cash/checking in-game, and the maintainer subsequently confirmed the requested savings/save/reload checks. This is maintainer-reported gameplay evidence; automated checks independently verified the returned game data and original account/support files. No additional volunteers or universal game-version coverage are implied. Earlier load failures occurred during a confused sequence of game-file/container selection and no-op exports; the exact cause of every earlier failure is not established. They remain in the historical log, superseded by the successful controlled attempt.

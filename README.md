@@ -1,4 +1,4 @@
-> **RESTORATION WARNING — 2026-11-25:** A user tested the generalized editor + GarlicSaves website encryption path and GTA VI rejected the restored save with “Couldn’t load.” Successful decrypted-return comparison does not establish valid game-level reconstruction or gameplay acceptance. Do not restore outputs from this path pending diagnosis. Preserve original/recovery saves. Earlier legacy local-workflow successes do not validate this new path.
+> **PS5 workflow validated on one tested save — 2026-11-25:** The maintainer confirmed the public decoded editor → GarlicSaves website encryption → GarlicTransfer workflow loaded the intended balances in-game and preserved them after saving and reloading. This is one-console/sample evidence, not universal compatibility. Keep untouched backups and verify every return.
 
 # GTA VI Save Tools
 
@@ -28,11 +28,11 @@ The checker cannot decrypt raw PS5 containers or protected ASAV game bodies. A p
 
 ## Run the decoded editor preview
 
-Use `decoded-editor/Start-Editor.cmd` with Node.js 22+. Open your own already decoded JSAV or a decoded export ZIP, select a slot/wallet, review the original balances, then export a separate edit. It needs no maintainer save, account data, game executable or private codec inputs for this step.
+Download **Windows-x64-Portable.zip** from [Releases](https://github.com/Twiggy4K/gta-vi-save-tools/releases), choose **Extract All**, then open **Start-Editor.cmd**. Node.js is included. Source-only checkouts require Node.js 22+. Open your own already decoded JSAV or a decoded export ZIP, select a slot/wallet, review the original balances, then export a separate edit. It needs no maintainer save, account data, game executable or private codec inputs for this step.
 
 Caps: cash **0–20,000**, checking **0–2,000,000**, Family Savings **0–1,000,000**. Accounts are found by relationships across inventories, not fixed positions, original amounts or character codes. Ambiguous mappings and unknown capacities stop editing rather than guessing.
 
-**Output is still decoded JSAV, not a restore-ready ASAV or PS5 container.** The browser handoff opens GarlicSaves for manual sign-in/upload without a worker key. Website end-to-end compatibility is still unverified; the return comparison checks a user-provided decrypted ZIP. See the [full guide](docs/DECODED-EDITOR-GUIDE.md).
+**Output is still decoded JSAV, not a restore-ready ASAV or PS5 container.** The browser handoff opens GarlicSaves for manual sign-in/upload without a worker key. The website route passed a controlled retail PS5 load/save/reload test on one slot; the return comparison checks a user-provided decrypted ZIP. See the [full guide](docs/DECODED-EDITOR-GUIDE.md).
 
 ## Demonstrated results and limits
 
@@ -53,7 +53,7 @@ npm run audit:source
 npm test
 ```
 
-The automated suite uses synthetic fixtures only. See [setup](docs/SETUP.md) and [architecture](docs/ARCHITECTURE.md). The old `editor/` is a historical statistic-only prototype, not recommended restoration code. The current writer's known-profile assumptions must be generalized before enabling other users' saves.
+The automated suite uses synthetic fixtures only. See [setup](docs/SETUP.md) and [architecture](docs/ARCHITECTURE.md). The old `editor/` is a historical statistic-only prototype, not recommended restoration code. The generalized writer rejects unsupported or ambiguous layouts. Other users' saves still need compatibility and backed-up acceptance testing.
 
 ## License and credits
 
@@ -67,10 +67,14 @@ Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-cli
 
 ### 0.3.2 browser handoff correction
 
-The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. Browser end-to-end compatibility remains unverified. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.
+The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. One browser-based PS5 load/save/reload test passed. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.
 
 ### Website account-profile selection
 
-Before encrypting, add/save the profile offered when decrypting the original console export, and select the corresponding profile on Encrypt. Do not assume a previously stored profile is correct. Byte-reversed duplicate profiles occurred in testing; stop on mismatched account metadata rather than guessing. Follow the profile troubleshooting and exact-download round-trip steps in [the guide](docs/DECODED-EDITOR-GUIDE.md). A single browser round trip passed content/account checks; gameplay testing remains separate.
+Before encrypting, add/save the profile offered when decrypting the original console export, and select the corresponding profile on Encrypt. Do not assume a previously stored profile is correct. Byte-reversed duplicate profiles occurred in testing; stop on mismatched account metadata rather than guessing. Follow the profile troubleshooting and exact-download round-trip steps in [the guide](docs/DECODED-EDITOR-GUIDE.md). The same controlled PS5 test passed content/account comparison, game loading, saving and reloading.
 
 **Website profile warning:** Add to profile may save the ID in reversed byte order. Compare with the original decrypt job; use Dashboard → profile three-dot menu → **Swap Endian** only when that specific reversal is confirmed. Re-encrypt and verify a decrypted return. See the detailed guide; this was not observed as necessary in our local GarlicMgr tests.
+
+## Critical transfer step
+
+After the decrypted-return check passes, extract the **encrypted website download** and choose its **SAVEDATASARC0011** container (slot 11 example) in GarlicTransfer. **Never upload SARC0011 from a decrypted ZIP.** Keep Original, Edited, Encrypted and Verification folders separate. Confirm target balances before encryption and after verification. Read the full guide before transferring.
