@@ -31,7 +31,7 @@ The writer verifies the edited document and related money structures. It appends
 ## Optional browser processing
 
 1. Decrypt your **original console export** on GarlicSaves. Download and keep that original decrypted ZIP untouched.
-2. If the decrypt result offers to add/save its account profile, complete that step. Check the Dashboard to confirm the profile is available before encrypting. Do not assume an older profile with a similar name belongs to this export.
+2. If the decrypt result offers to add/save its account profile, complete that step, then compare the saved profile ID with the original decrypt job display. The website may reverse its byte order; follow **Website profile ID order: Swap Endian** below before encrypting.
 3. Open that complete original decoded ZIP in our editor. Review the slot/wallet, edit balances and export.
 4. Click **3 Open GarlicSaves**. Sign in on the website, never in this editor. No worker key is needed. The editor highlights **edited-decoded-save.zip**.
 5. On the website's Encrypt page, select the profile associated with the **original console save**, then upload the edited ZIP. Do not select a profile created only by decrypting an earlier incorrectly encrypted test.
@@ -58,3 +58,18 @@ Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-cli
 ### 0.3.2 browser handoff correction
 
 The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. Browser end-to-end compatibility remains unverified. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.
+
+### Website profile ID order: Swap Endian
+
+In our tested GarlicSaves website workflow, **Add to profile** stored the account ID in the opposite byte order from the decrypt job's displayed account ID. Encryption then showed different **Previous Account ID** and **New Account ID** values, and the returned account metadata failed comparison.
+
+If this happens:
+
+1. Keep the original decrypt job open and note its displayed Account ID privately. Never post your ID in an issue or screenshot.
+2. On the website Dashboard, compare the saved profile's actual ID with that original decrypt result. Profile names can stay unchanged after corrections, so do not rely on the name.
+3. **Only if the mismatch is the reversed byte order**, open the profile's three-dot menu and choose **Swap Endian** once. This changes the stored profile, not just its label. Do not toggle it routinely or when IDs already agree. It will also affect future jobs using that profile.
+4. Return to Encrypt, refresh if needed, select the corrected profile and upload the editor's **edited-decoded-save.zip**, not your original decrypted ZIP.
+5. For a same-account edit, the completed job's **Previous Account ID** and **New Account ID** should agree. If they differ, stop.
+6. Download the encrypted result, decrypt a copy of that exact download, and run **Check decrypted return ZIP**. Require a pass before any restoration test; matching displayed IDs alone is insufficient.
+
+After this correction, our tested browser round trip passed the editor's game-data and original account/support comparison. This does not establish universal website behavior or gameplay acceptance. We did **not** observe this correction being necessary in our earlier local, jailbroken-PS5 GarlicMgr workflow. Do not apply a website-profile workaround automatically to local GarlicMgr.

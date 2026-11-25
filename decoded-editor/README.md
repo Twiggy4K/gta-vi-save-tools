@@ -25,3 +25,5 @@ The public UI no longer requests worker/API keys or directs users to Contribute.
 ### Website account-profile selection
 
 Before encrypting, add/save the profile offered when decrypting the original console export, and select the corresponding profile on Encrypt. Do not assume a previously stored profile is correct. Byte-reversed duplicate profiles occurred in testing; stop on mismatched account metadata rather than guessing. Follow the profile troubleshooting and exact-download round-trip steps in [the guide](../docs/DECODED-EDITOR-GUIDE.md). A single browser round trip passed content/account checks; gameplay testing remains separate.
+
+**Website profile warning:** Add to profile may save the ID in reversed byte order. Compare with the original decrypt job; use Dashboard → profile three-dot menu → **Swap Endian** only when that specific reversal is confirmed. Re-encrypt and verify a decrypted return. See the detailed guide; this was not observed as necessary in our local GarlicMgr tests.

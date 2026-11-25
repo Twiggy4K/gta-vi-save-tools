@@ -85,3 +85,7 @@ Dates use America/Chicago. This repository begins as an archive of earlier local
 - Document original-decrypt profile registration, profile ambiguity and paired-download verification.
 - Return comparison accepts only the observed outer prefix change and regenerated chives sidecars; account/support and game files must remain exact.
 - One browser round trip passed content/account checks; gameplay remains separate.
+
+### Website workflow clarification
+
+Documented the observed Add-to-profile byte-order mismatch, conditional Dashboard Swap Endian correction, Previous/New Account ID check, and mandatory decrypted-return comparison. Local GarlicMgr behavior remains distinct.

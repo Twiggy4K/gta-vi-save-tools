@@ -89,11 +89,11 @@ $online.Add_Click({
     if(-not $script:outputPackage){return}
     $message="Open GarlicSaves in your browser and sign in there. No API key or PSN password belongs in this editor.
 
-1. Upload edited-decoded-save.zip on the Encrypt page only if the website supports this decoded export. Keep the original account/profile.
+1. Upload edited-decoded-save.zip on the Encrypt page only if the website supports this decoded export. Keep the original account/profile. Compare the saved profile ID with the ORIGINAL decrypt job. If it is byte-reversed, use Dashboard > profile menu > Swap Endian once, then refresh Encrypt. Previous/New Account ID should agree for same-account edits.
 2. Download the encrypted result.
 3. Decrypt a copy through the website, then use Check decrypted return ZIP here.
 
-The website route has not yet been verified end to end. Do not restore an unchecked result. Uploading on the website shares the save and account metadata with GarlicSaves. Opening this page does not upload anything."
+One browser round trip passed after correcting profile byte order. This is not universal compatibility or gameplay acceptance. Do not restore an unchecked result. Uploading on the website shares the save and account metadata with GarlicSaves. Opening this page does not upload anything."
     if([Windows.Forms.MessageBox]::Show($message,'Manual website processing','OKCancel','Information') -ne 'OK'){return}
     Start-Process 'https://garlicsaves.com/encrypt';Start-Process explorer.exe -ArgumentList ('/select,"'+$script:outputPackage+'"');$copy.Enabled=$true
     $status.Text='Website handoff opened. Sign in and upload manually; then compare a decrypted return. Browser encryption compatibility is not yet verified.'

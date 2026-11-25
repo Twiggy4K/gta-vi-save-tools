@@ -55,3 +55,7 @@ The suite now includes 18 new generalized-writer, remote-protocol and SFO tests 
 With the owner's explicit approval, a slot-11 copy was processed through GarlicSaves. The web JSAV matched the local decode. The first encrypted return preserved game data but reversed the account-ID bytes; verification caught the mismatch and the result was not approved for restoration. The corrected original-SFO wire-byte convention produced byte-identical edited JSAV and original param.sfo, keystone and icon after re-decryption.
 
 The consent-based GUI pipeline then repeated the successful encryption/verification with cash 20,000 / checking 2M / savings 1M. It stored no API key and performed no restoration. No other person's sample was uploaded. This establishes a tested client/service route for that input, not universal service or game acceptance.
+
+## Browser profile correction — 2026-11-25
+
+User screenshots document Dashboard Swap Endian, equal Previous/New Account ID on encryption, and a successful decrypted-return comparison. This validates one browser content/account round trip. No new console restoration or gameplay persistence is established. Earlier local GarlicMgr tests did not require this website profile correction.
