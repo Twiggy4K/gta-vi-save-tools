@@ -1,3 +1,5 @@
+> **RESTORATION WARNING — 2026-11-25:** A user tested the generalized editor + GarlicSaves website encryption path and GTA VI rejected the restored save with “Couldn’t load.” Successful decrypted-return comparison does not establish valid game-level reconstruction or gameplay acceptance. Do not restore outputs from this path pending diagnosis. Preserve original/recovery saves. Earlier legacy local-workflow successes do not validate this new path.
+
 # GTA VI Save Tools
 
 **Public experimental tools: a runnable decoded-save editor, a read-only checker, and research source. Not a universal restore-ready editor.**

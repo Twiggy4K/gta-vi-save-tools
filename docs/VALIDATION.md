@@ -59,3 +59,7 @@ The consent-based GUI pipeline then repeated the successful encryption/verificat
 ## Browser profile correction — 2026-11-25
 
 User screenshots document Dashboard Swap Endian, equal Previous/New Account ID on encryption, and a successful decrypted-return comparison. This validates one browser content/account round trip. No new console restoration or gameplay persistence is established. Earlier local GarlicMgr tests did not require this website profile correction.
+
+## Failed gameplay acceptance — 2026-11-25
+
+User reports GTA VI rejected the restored browser-processed generalized editor output with Could not load, despite a successful decrypted-return comparison. Cause undetermined: game-level reconstruction, edit consistency, container/transfer selection and other dependencies require isolation. No further automatic restoration. Public warning added.
