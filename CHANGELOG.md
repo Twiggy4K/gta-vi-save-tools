@@ -73,3 +73,9 @@ Dates use America/Chicago. This repository begins as an archive of earlier local
 - Added Windows x64 portable packaging with verified official Node.js 24.22.3 and complete runtime license notices.
 - Launcher prefers bundled runtime and rejects versions below 22.
 - Updated extract-and-launch instructions; money processing is unchanged.
+
+## 0.3.2-alpha.1
+
+- Removed public worker-key prompt and misleading Contribute link.
+- Added manual browser handoff and exact decrypted-return ZIP comparison.
+- Ordinary website encryption remains unverified; earlier API tests are not website acceptance.

@@ -28,20 +28,15 @@ The app backs up the selected input. It does not need the maintainer's save, ori
 
 The writer verifies the edited document and related money structures. It appends registered mapped-capacity currency rows when needed, preserving exact original GUID tokens and unrelated fields. It does not silently overfill unknown boxes. Ambiguity causes rejection. No changes are written to the source or a console.
 
-## Optional online processing
+## Optional browser processing
 
-After exporting from a complete original single-slot GarlicSaves decoded ZIP:
+1. Export from your complete original decoded ZIP.
+2. Click **3 Open GarlicSaves**. Sign in on the website, never in this editor. No worker key is needed by this handoff.
+3. The editor highlights **edited-decoded-save.zip**. Upload manually on the site's Encrypt page only if it supports this decoded format; keep the original account/profile.
+4. Download the encrypted result. Decrypt a copy using the website.
+5. Click **4 Check decrypted return ZIP** and select that decrypted download. Every file must match the intended package exactly. A mismatch blocks approval. Keep the encrypted result paired with its verification download.
 
-1. Click **3 Online encrypt + verify**.
-2. Enter your own GarlicSaves worker/API key. This is not your PSN password. Use **Get my service key** to open the service's Contribute page if needed. A service account/key and availability are external requirements; no shared credential is bundled.
-3. Read the disclosure and check the approval box. Your save and account metadata will be sent to that third party for encryption and verification decryption. No upload happens without your approval, and the key is not stored by the app.
-4. Wait for **VERIFIED**. The editor re-decrypts a copy of the returned container, compares its decoded game data with the intended edit, and checks original SFO/account, keystone and icon bytes. If anything differs, it refuses verification.
-5. Click **Copy verified container path** and use that extensionless file in GarlicTransfer's local replacement action. Do not choose the ZIP. Console restoration is still a separate, deliberate action.
-
-Online processing requires the complete ORIGINAL single-slot web export and its matching metadata, not a raw JSAV alone or a multi-slot archive. The developer adapter reads the account wire bytes from the original SFO; it does not ask you to type an account ID. A live test exposed a byte-order mismatch; verification caught it, and the corrected path preserved metadata byte-for-byte. The account-byte convention is service-specific, so return-file verification must never be skipped.
-
-A user-approved live test passed with cash 20,000, checking 2M and savings 1M. The result was not restored. The worker API is a third-party dependency that can change or be unavailable; a successful test on one input is not universal service compatibility. No private codec or game executable is required by this online route.
-Before ANY restoration test: verify the processed file by decrypting a copy through a compatible path, compare the recovered decoded content to the intended edit, confirm the original account metadata, keep full local/cloud recovery copies, and review the actual transfer/deletion scope. Do not restore just because encryption returned a file.
+**Browser encryption compatibility is pending an end-to-end test.** Earlier successful worker-API tests do not establish ordinary website behavior. A matching decrypted ZIP proves content equality, not which encrypted file was transferred or gameplay acceptance. No files are uploaded by the editor and no console restoration occurs. Website uploads share game/account metadata with that service. If the site rejects the export, stop; do not rename or force it.
 
 ## What remains experimental
 
@@ -52,3 +47,7 @@ The conservative 2M checking and 1M savings caps are editor policies. We are not
 ### Portable Windows download (0.3.1-alpha.1)
 
 Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-click **Start-Editor.cmd**. Keep its runtime folder alongside the editor. Node.js 24.22.3 and its license notices are included; no separate installation or Codex subscription is needed. The source-only download still requires Node.js 22+. Other workflow and experimental limitations remain unchanged.
+
+### 0.3.2 browser handoff correction
+
+The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. Browser end-to-end compatibility remains unverified. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.

@@ -10,10 +10,14 @@ Accounts are discovered by item/root/parent relationships across inventories, no
 
 No full private sample or account identity is included. Every user must supply their own correctly decoded save and matching metadata. ZIP packaging preserves that user's original export and replaces only the selected game file. Such output is private and should not be posted publicly.
 
-Optional online processing is a separate, consent-based route. The UI asks for the user's own worker/API key and explicit approval before uploading to GarlicSaves. It encrypts, re-decrypts a copy, and checks exact edited game data and unchanged account/support files before exposing a verified container path. A consented live encrypt/decrypt verification passed on one private source; no new retail restoration test was performed. No public/shared credential is embedded.
+Browser processing is manual: sign in to GarlicSaves, upload your own ZIP, and compare a decrypted return in the editor. No key prompt, automatic upload or verified-container-path claim remains. Ordinary website compatibility is pending an end-to-end test.
 
 The older workshop local-ASAV path still needs undistributed runtime inputs. That does not affect this decoded writer, but means this is not a self-contained protected-ASAV codec release.
 
 ### Portable Windows download (0.3.1-alpha.1)
 
 Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-click **Start-Editor.cmd**. Keep its runtime folder alongside the editor. Node.js 24.22.3 and its license notices are included; no separate installation or Codex subscription is needed. The source-only download still requires Node.js 22+. Other workflow and experimental limitations remain unchanged.
+
+### 0.3.2 browser handoff correction
+
+The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. Browser end-to-end compatibility remains unverified. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.

@@ -23,8 +23,8 @@ foreach($pair in @(@('cash','Selected wallet cash',20000),@('checking','Shared c
 $policy=Label-Control 'Unknown capacities are not guessed. Ambiguous ownership or mirrors block editing. These rules are experimental.' 27 410 900 42
 $build=Button-Control '2  Review + export decoded edit' 27 467 335;$build.Enabled=$false
 $folder=Button-Control 'Open output folder' 385 467 240;$folder.Enabled=$false
-$online=Button-Control '3  Online encrypt + verify' 648 467 284;$online.Enabled=$false
-$copy=Button-Control 'Copy verified container path' 27 610 350;$copy.Enabled=$false
+$online=Button-Control '3  Open GarlicSaves' 648 467 284;$online.Enabled=$false
+$copy=Button-Control '4  Check decrypted return ZIP' 27 610 350;$copy.Enabled=$false
 $status=Label-Control 'No console is contacted. No file is uploaded automatically. Keep original backups.' 27 532 900 68
 function Invoke-Editor([string[]]$Arguments){$response=& $node (Join-Path $PSScriptRoot 'editor.cjs') @Arguments 2>&1;$exitCode=$LASTEXITCODE;try{$r=($response -join "`n")|ConvertFrom-Json}catch{throw 'Editor could not read its response.'};if($exitCode -ne 0 -or -not $r.ok){throw $r.error};return $r}
 function Update-Selection {
@@ -75,21 +75,28 @@ $build.Add_Click({if(-not $script:selection){return};$preview=(@('cash','checkin
 $folder.Add_Click({if($script:outputDirectory){Start-Process -FilePath explorer.exe -ArgumentList ('"'+$script:outputDirectory+'"')}})
 . (Join-Path $PSScriptRoot 'online-workflow.ps1')
 foreach($n in $numbers.Values){$n.Add_ValueChanged({$online.Enabled=$false;$copy.Enabled=$false;$script:verifiedOnline=$null})}
-$copy.Add_Click({if($script:verifiedOnline){if((Get-FileHash -LiteralPath $script:verifiedOnline.Path).Hash.ToLowerInvariant() -ne $script:verifiedOnline.Hash){$copy.Enabled=$false;$status.Text='Verified container changed; process it again.';return};[Windows.Forms.Clipboard]::SetText($script:verifiedOnline.Path);$status.Text='Copied the verified extensionless container path. Select it in GarlicTransfer, NOT a ZIP. Restoration is manual.'}})
+$copy.Add_Click({
+    if(-not $script:outputPackage){return}
+    $pick=New-Object Windows.Forms.OpenFileDialog;$pick.Filter='Decrypted return ZIP|*.zip'
+    if($pick.ShowDialog() -ne 'OK'){return}
+    try{
+        $result=Test-BrowserReturn $script:outputPackage $pick.FileName $script:outputDirectory
+        $status.Text='MATCHED: decrypted return game data and support files equal the intended package. This does not verify which encrypted container was transferred.'
+        [Windows.Forms.MessageBox]::Show('Decrypted return matches. Keep the encrypted download paired with this return ZIP. No console restoration has been performed.','Return comparison passed')|Out-Null
+    }catch{$status.Text='NOT VERIFIED: '+$_.Exception.Message}
+})
 $online.Add_Click({
     if(-not $script:outputPackage){return}
-    $dialog=New-Object Windows.Forms.Form;$dialog.Text='Approve optional online processing';$dialog.Size=New-Object Drawing.Size(660,325);$dialog.StartPosition='CenterParent'
-    $text=New-Object Windows.Forms.Label;$text.Text='This sends your save and account metadata to GarlicSaves for encryption and a verification decryption. Use YOUR worker/API key, not a PSN password. No key is stored and no console restore is performed.';$text.SetBounds(20,20,600,75)
-    $key=New-Object Windows.Forms.TextBox;$key.UseSystemPasswordChar=$true;$key.SetBounds(20,112,600,28)
-    $approve=New-Object Windows.Forms.CheckBox;$approve.Text='I approve uploading this save and metadata to GarlicSaves.';$approve.SetBounds(20,155,600,30)
-    $ok=New-Object Windows.Forms.Button;$ok.Text='Encrypt + verify';$ok.SetBounds(20,210,200,35);$ok.Add_Click({if($approve.Checked -and $key.Text.Trim().Length -ge 16){$dialog.DialogResult='OK';$dialog.Close()}})
-    $portal=New-Object Windows.Forms.Button;$portal.Text='Get my service key';$portal.SetBounds(250,210,200,35);$portal.Add_Click({Start-Process 'https://garlicsaves.com/contribute'})
-    $dialog.Controls.AddRange(@($text,$key,$approve,$ok,$portal));if($dialog.ShowDialog($form) -ne 'OK'){$dialog.Dispose();return}
-    $secret=$key.Text.Trim();$dialog.Dispose();$script:busy=$true;$script:verifiedOnline=$null;$copy.Enabled=$false
-    foreach($c in @($open,$build,$wallet,$online)){$c.Enabled=$false};foreach($n in $numbers.Values){$n.Enabled=$false}
-    try{$script:verifiedOnline=Invoke-OnlineVerified $script:outputPackage $script:outputDirectory $secret $true;$copy.Enabled=$true;$status.Text='VERIFIED: exact decoded edit and original account/support files returned. Copy the container path; retail restoration is still manual.'}
-    catch{$status.Text='NOT VERIFIED: '+$_.Exception.Message}
-    finally{$secret=$null;$script:busy=$false;foreach($c in @($open,$build,$wallet,$online)){$c.Enabled=$true};foreach($n in $numbers.Values){$n.Enabled=$true}}
+    $message="Open GarlicSaves in your browser and sign in there. No API key or PSN password belongs in this editor.
+
+1. Upload edited-decoded-save.zip on the Encrypt page only if the website supports this decoded export. Keep the original account/profile.
+2. Download the encrypted result.
+3. Decrypt a copy through the website, then use Check decrypted return ZIP here.
+
+The website route has not yet been verified end to end. Do not restore an unchecked result. Uploading on the website shares the save and account metadata with GarlicSaves. Opening this page does not upload anything."
+    if([Windows.Forms.MessageBox]::Show($message,'Manual website processing','OKCancel','Information') -ne 'OK'){return}
+    Start-Process 'https://garlicsaves.com/encrypt';Start-Process explorer.exe -ArgumentList ('/select,"'+$script:outputPackage+'"');$copy.Enabled=$true
+    $status.Text='Website handoff opened. Sign in and upload manually; then compare a decrypted return. Browser encryption compatibility is not yet verified.'
 })
 $form.Add_FormClosing({param($sender,$eventArgs) if($script:busy){$eventArgs.Cancel=$true;$status.Text='Online processing is active. Please wait for verification or timeout.'}})
 if($TestInput){Open-Decoded $TestInput;Write-Output ('Mapping ready: '+$build.Enabled)}

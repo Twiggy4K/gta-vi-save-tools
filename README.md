@@ -30,7 +30,7 @@ Use `decoded-editor/Start-Editor.cmd` with Node.js 22+. Open your own already de
 
 Caps: cash **0–20,000**, checking **0–2,000,000**, Family Savings **0–1,000,000**. Accounts are found by relationships across inventories, not fixed positions, original amounts or character codes. Ambiguous mappings and unknown capacities stop editing rather than guessing.
 
-**Output is still decoded JSAV, not a restore-ready ASAV or PS5 container.** Optional GarlicSaves processing requires informed approval and the user's own service key. A consented live encrypt/decrypt test preserved the exact edit and original account/support files; no new restoration was performed. The UI verifies returned content before providing a raw container path. See the [full guide](docs/DECODED-EDITOR-GUIDE.md).
+**Output is still decoded JSAV, not a restore-ready ASAV or PS5 container.** The browser handoff opens GarlicSaves for manual sign-in/upload without a worker key. Website end-to-end compatibility is still unverified; the return comparison checks a user-provided decrypted ZIP. See the [full guide](docs/DECODED-EDITOR-GUIDE.md).
 
 ## Demonstrated results and limits
 
@@ -62,3 +62,7 @@ This is an unofficial research project, unaffiliated with Rockstar Games, Take-T
 ### Portable Windows download (0.3.1-alpha.1)
 
 Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-click **Start-Editor.cmd**. Keep its runtime folder alongside the editor. Node.js 24.22.3 and its license notices are included; no separate installation or Codex subscription is needed. The source-only download still requires Node.js 22+. Other workflow and experimental limitations remain unchanged.
+
+### 0.3.2 browser handoff correction
+
+The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. Browser end-to-end compatibility remains unverified. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.

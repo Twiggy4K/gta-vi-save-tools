@@ -42,3 +42,19 @@ function Invoke-OnlineVerified([string]$Package,[string]$OutputDirectory,[string
     $record|ConvertTo-Json -Depth 6|Set-Content -LiteralPath (Join-Path $transfer 'VERIFIED.json') -Encoding UTF8
     return @{Path=$raw;Folder=$transfer;Balances=$manifest.after;Hash=$record.containerHash}
 }
+
+function Test-BrowserReturn([string]$ExpectedZip,[string]$ReturnedZip,[string]$OutputDirectory){
+    $expected=[IO.Compression.ZipFile]::OpenRead($ExpectedZip);$returned=[IO.Compression.ZipFile]::OpenRead($ReturnedZip)
+    try{
+        foreach($archive in @($expected,$returned)){
+            if($archive.Entries.Count -gt 512){throw 'Too many entries'}
+            $names=@{};$total=0L;foreach($e in $archive.Entries){if($names.ContainsKey($e.FullName)){throw 'Duplicate archive path'};$names[$e.FullName]=$true;$total+=$e.Length;if($e.Length -gt 64MB -or $total -gt 128MB){throw 'Archive too large'}}
+        }
+        $a=@($expected.Entries|Where-Object {-not $_.FullName.EndsWith('/')});$b=@($returned.Entries|Where-Object {-not $_.FullName.EndsWith('/')})
+        if($a.Count -ne $b.Count){throw 'Return ZIP entry count differs'}
+        foreach($e in $a){$other=$returned.GetEntry($e.FullName);if(-not $other -or $e.Length -ne $other.Length -or (Entry-Hash $e) -ne (Entry-Hash $other)){throw 'Returned content differs from the intended package'}}
+        $record=@{decodedReturnMatches=$true;encryptedContainerBindingVerified=$false;restorationPerformed=$false;returnedZipHash=(Get-FileHash -LiteralPath $ReturnedZip).Hash.ToLowerInvariant()}
+        $record|ConvertTo-Json|Set-Content -LiteralPath (Join-Path $OutputDirectory 'BROWSER-RETURN-CHECK.json') -Encoding UTF8
+        return $record
+    }finally{$expected.Dispose();$returned.Dispose()}
+}
