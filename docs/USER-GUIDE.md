@@ -1,6 +1,8 @@
 # Start here: a plain-language guide
 
-This project currently has **two different tools**:
+**New decoded-writer preview:** follow [this guide](DECODED-EDITOR-GUIDE.md) to edit decoded saves locally without private codec inputs. The older local-ASAV workflow in Part B below remains a separate private-runtime path.
+
+This guide covers these two workflows:
 
 | What you want to do | Tool to use | Available to whom? |
 |---|---|---|

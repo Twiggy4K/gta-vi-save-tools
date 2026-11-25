@@ -1,15 +1,16 @@
 {
   "name": "gta-vi-save-research",
-  "version": "0.2.0-alpha.1",
+  "version": "0.3.0-alpha.1",
   "private": true,
-  "description": "Read-only GTA VI save checker and experimental profile-specific PS5/editor research with externally reported Xbox-derived PC save persistence",
+  "description": "Experimental decoded-save money editor with relationship-based inventory mapping and optional external processing",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test research/*.test.cjs && node checker/check-tests.cjs",
+    "test": "node --test research/*.test.cjs decoded-editor/*.test.cjs && node checker/check-tests.cjs",
     "audit:source": "node scripts/check-repository.cjs",
-    "inspect": "node editor/editor.cjs inspect"
+    "inspect": "node editor/editor.cjs inspect",
+    "inspect:decoded": "node decoded-editor/editor.cjs inspect"
   },
   "license": "MIT"
 }

@@ -40,3 +40,18 @@ Universal write compatibility; automatic character ownership mapping; every camp
 ## External load/save/reload evidence — 2026-11-25
 
 0xSavior reports their rebuilt Prologue control loads, and the PS5-derived ASAV-v2 probe loads into free roam and can save/reload in their Xbox-derived PC build. Local checks reproduced the original Xbox-labelled trailer, verified exact decoded control content and restricted probe changes to version/checksum/trailer. No source sample is public. See [full evidence and limitations](CROSS-PLATFORM-TEST.md).
+
+## Generalized writer development — 2026-11-25
+
+- Added synthetic discovery/edit tests with reordered inventories, nonstandard inventory counts, different balances and character codes, exact no-op output, zero/cap boundaries, ambiguous mapping rejection and repeated edits.
+- Added single-container and uniquely corroborated multi-container mirror-scope regression tests. These cover a relationship observed in a later gameplay-resaved input, not a universal ownership algorithm.
+- Added remote-adapter tests for consent, fixed HTTPS endpoints, user-provided authentication, missing account setting, private-error suppression and bounded polling. No live upload is part of these tests.
+- New output remains decoded JSAV until separate game/container processing. The decoded editor does not claim to produce a playable encrypted save on its own.
+
+## Generalized writer/online verification follow-up
+
+The suite now includes 18 new generalized-writer, remote-protocol and SFO tests (64 source-only tests total with the earlier suites). Four private local ASAV rebuilds passed at zero/max targets across two preserved profiles, with no original changes. These private checks were not run by CI.
+
+With the owner's explicit approval, a slot-11 copy was processed through GarlicSaves. The web JSAV matched the local decode. The first encrypted return preserved game data but reversed the account-ID bytes; verification caught the mismatch and the result was not approved for restoration. The corrected original-SFO wire-byte convention produced byte-identical edited JSAV and original param.sfo, keystone and icon after re-decryption.
+
+The consent-based GUI pipeline then repeated the successful encryption/verification with cash 20,000 / checking 2M / savings 1M. It stored no API key and performed no restoration. No other person's sample was uploaded. This establishes a tested client/service route for that input, not universal service or game acceptance.

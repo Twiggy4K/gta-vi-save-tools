@@ -19,22 +19,22 @@ function replaceArrays(doc,replacements){
  for(const entry of doc.entries){let shift=0,growth=0;for(const e of edits){const delta=e.bytes.length-(e.end-e.start);if(e.end<=entry.start)shift+=delta;else if(e.start>=entry.start&&e.end<=entry.start+entry.size)growth+=delta;else if(e.start<entry.start+entry.size&&e.end>entry.start)throw Error('Cross-block array edit');}out.writeUInt32LE(entry.start+shift,entry.at+12);out.writeUInt32LE(entry.size+growth,entry.at+16);}
  const checked=parseDocument(out);for(const[key,n]of doc.numbers)if(checked.numbers.get(key)?.token!==n.token)throw Error('Existing number changed during append');return checked;
 }
-function expand(doc,targets,balances){
- if(targets.checking<=balances.checking&&targets.savings<=balances.savings)return{doc,addedRows:0};
- const inventory=readInventories(doc).find(v=>v.inventoryIndex===0),owner=at(doc.root,inventory.inventoryPath),main=owner[K.main],arrays=new Map(),cols={};
- function load(value,path){const c=column(value,path),tokens=c.values.map((v,i)=>typeof v==='boolean'?String(v):exact(doc,[...c.path,i],v));arrays.set(JSON.stringify(c.path),tokens);return tokens;}
- for(const key of ['guid','parent','item','slot','qty','flag'])cols[key]=load(main[K[key]],[...inventory.inventoryPath,K.main,K[key]]);
- const parents=load(owner[K.parents],[...inventory.inventoryPath,K.parents]),registration=load(owner[K.registration],[...inventory.inventoryPath,K.registration]);
- const used=new Set([...doc.numbers.values()].map(n=>n.token));let addedRows=0;
- function guid(){let v;do{v=crypto.randomBytes(8).readBigInt64LE().toString();}while(v==='0'||used.has(v));used.add(v);return v;}
- function append(parentRow,item,slot,quantity){const row=cols.guid.length,parentGuid=cols.guid[parentRow];let pi=parents.indexOf(parentGuid);if(pi<0){pi=parents.length;parents.push(parentGuid);}const values={guid:guid(),parent:String(pi),item:String(item),slot:String(slot),qty:String(quantity),flag:'false'};for(const k of Object.keys(cols))cols[k].push(values[k]);registration.push(String(row*16+1));addedRows++;return row;}
- function addCash(box,slot){if(!inventory.rows.some(r=>r.parentRow===box&&r.itemHash===2084597891))append(box,2084597891,slot,0);}
- if(targets.checking>balances.checking){const root=inventory.rows.find(r=>r.itemHash===869874572);if(!root)throw Error('Missing checking root');
-  for(const [item,slot]of [[864635288,2177639769],[2786822473,2755084099],[1790448259,require('./hash.cjs').joaat('slotid_currency_cash_500000')],[2296794847,require('./hash.cjs').joaat('slotid_currency_cash_1000000')]]){
-   const matches=inventory.rows.filter(r=>r.parentRow===root.row&&r.itemHash===item);if(matches.length>1)throw Error('Duplicate checking box');const box=matches.length?matches[0].row:append(root.row,item,1490883802,1);addCash(box,slot);
-  }
+function expand(doc,targets,balances,selection={}){
+ const {model,SPECS,CURRENCY,CONTAINER}=require('./inventory-profile.cjs'),mapped=model(doc,selection);
+ const arrays=new Map(),builders=new Map(),used=new Set([...doc.numbers.values()].map(n=>n.token));let addedRows=0;
+ function builder(inv){const key=JSON.stringify(inv.inventoryPath);if(builders.has(key))return builders.get(key);const owner=at(doc.root,inv.inventoryPath),cols={};
+  function load(value,path){const c=column(value,path),tokens=c.values.map((v,i)=>typeof v==='boolean'?String(v):exact(doc,[...c.path,i],v));arrays.set(JSON.stringify(c.path),tokens);return tokens;}
+  for(const k of ['guid','parent','item','slot','qty','flag'])cols[k]=load(owner[K.main][K[k]],[...inv.inventoryPath,K.main,K[k]]);
+  const parents=load(owner[K.parents],[...inv.inventoryPath,K.parents]),registrations=load(owner[K.registration],[...inv.inventoryPath,K.registration]);
+  function append(parentRow,item,slot,quantity){const row=cols.guid.length,parentGuid=cols.guid[parentRow];if(parentGuid===undefined)throw Error('Missing expansion parent');let index=parents.indexOf(parentGuid);if(index<0){index=parents.length;parents.push(parentGuid);}let guid;do{guid=crypto.randomBytes(8).readBigInt64LE().toString();}while(guid==='0'||used.has(guid));used.add(guid);const values={guid,parent:String(index),item:String(item),slot:String(slot),qty:String(quantity),flag:'false'};for(const k of Object.keys(cols))cols[k].push(values[k]);registrations.push(String(row*16+1));addedRows++;return row;}
+  const b={append};builders.set(key,b);return b;
  }
- if(targets.savings>balances.savings){const root=inventory.rows.find(r=>r.itemHash===1019291102),box=inventory.rows.filter(r=>r.parentRow===root?.row&&r.itemHash===1790448259);if(box.length!==1)throw Error('Missing savings expansion box');addCash(box[0].row,require('./hash.cjs').joaat('slotid_currency_cash_500000'));}
- const changed=replaceArrays(doc,arrays);readInventories(changed);return{doc:changed,addedRows};
+ for(const kind of ['checking','savings']){
+  const account=mapped[kind];if(targets[kind]<=account.total)continue;
+  const inventory=account.inventory,b=builder(inventory);
+  const supported=kind==='checking'?[0x26457c8e,0x33894998,0xa61b8949,0x6ab81283,0x88e64edf]:[0xcfefdcf1,0xb84a2da6,0xa61b8949,0x6ab81283];
+  for(const item of supported){const spec=SPECS.get(item),matches=account.boxes.filter(row=>row.itemHash===item);if(matches.length>1)throw Error('Duplicate expansion container');const box=matches.length?matches[0].row:b.append(account.root.row,item,CONTAINER,1);if(!inventory.rows.some(row=>row.parentRow===box&&row.itemHash===CURRENCY))b.append(box,CURRENCY,spec.slot,0);}
+ }
+ if(!addedRows)return{doc,addedRows:0};const changed=replaceArrays(doc,arrays);model(changed,selection);return{doc:changed,addedRows};
 }
 module.exports={expand,replaceArrays};

@@ -39,3 +39,14 @@ Current-tree personal names are generalized. Historical Git objects can still re
 ## Cross-platform update — 2026-11-25
 
 See [the test record](CROSS-PLATFORM-TEST.md) for locally verified ASAV v2 decoding/trailer compatibility and 0xSavior''s reported control loading and imported free-roam save/reload persistence. This does not establish a universal converter or Xbox-side money editing. Source and documentation are published under MIT; no private sample is included.
+
+## Generalized decoded-writer preview — 2026-11-25
+
+The decoded writer no longer requires 21 inventories, fixed inventory positions, a fixed character code, SARC0010 or the original checking amount. It discovers account roots/parents, registrations, wallet candidates and statistic relationships from the current document. One uniquely corroborated subset of currency rows may explain a refreshed bank statistic; full-account statistics are not assumed universally. Unknown/ambiguous mappings fail closed.
+
+Policy caps remain cash 20,000, checking 2M and savings 1M. Mapped containers supply capacity; unknown containers are not overfilled based on a personal original value. A subsequently persisted source supplied a mapped 15,000 currency item/slot pair, enabling policy-cap allocation from a zero bank using supported boxes. This mapping is still build/schema-dependent, not a proof of universal gameplay semantics.
+
+The new decoded editor is runnable with Node/Windows and requires no private codec inputs for decoded editing/ZIP export. Protected ASAV generation and PS5 container encryption remain distinct. The optional remote adapter requires explicit consent and a user-supplied API key; its synthetic protocol tests and one consented live encrypt/decrypt comparison passed. The live result preserved the intended JSAV and original metadata; restoration remains untested for this build.
+
+Online follow-up: the owner-approved slot-11 encrypt/decrypt verification and GUI orchestration passed after correcting account wire-byte ordering; exact game data and original account/support files were checked. No restoration was performed. See VALIDATION.md and the decoded-editor guide; earlier statements that only mock testing existed are historical and superseded by this record.
+

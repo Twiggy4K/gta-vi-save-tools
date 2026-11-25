@@ -15,3 +15,10 @@ The workshop still needs private runtime inputs not included here. Its writer ta
 The reported Xbox-derived PC load/save/reload test concerns one external build and specific samples. Rebuilt-control acceptance and imported-state persistence do not establish Xbox-side money editing, arbitrary PS5-to-Xbox conversion, retail Xbox restoration or support for all PC ports. Online-only container processing for the workshop is also not validated end to end.
 
 Before a later editor release: resolve distributable runtime setup, independently map more layouts, add ownership/capacity checks, and run backed-up acceptance tests with multiple volunteers. No release date is promised.
+
+## Generalized decoded-editor development
+
+A runnable decoded writer and slot/wallet selection UI now avoid fixed inventory counts, positions, character codes and personal original balances. Input-specific corroboration remains necessary; ambiguous layouts are unsupported. The complete protected-ASAV runtime has not been made distributable. The explicit-consent online route passed a live encrypt/decrypt comparison with exact edited JSAV and original metadata verification. This generalized build has not been restored or tested in gameplay.
+
+Online follow-up: the owner-approved slot-11 encrypt/decrypt verification and GUI orchestration passed after correcting account wire-byte ordering; exact game data and original account/support files were checked. No restoration was performed. See VALIDATION.md and the decoded-editor guide; earlier statements that only mock testing existed are historical and superseded by this record.
+

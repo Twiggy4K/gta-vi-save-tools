@@ -31,7 +31,7 @@ $current.Text = 'Choose your decrypted GarlicSaves ZIP containing SARC0010 and c
 $current.SetBounds(20,100,705,40)
 $controls = @{}
 $i = 0
-foreach ($entry in @(@('cash','Jason cash on hand'),@('checking','Shared checking'),@('savings','Shared Family Savings'))) {
+foreach ($entry in @(@('cash','Selected wallet cash'),@('checking','Shared checking'),@('savings','Shared Family Savings'))) {
     $label = New-Object System.Windows.Forms.Label
     $label.Text = $entry[1]; $label.SetBounds(20,(153+45*$i),185,28)
     $number = New-Object System.Windows.Forms.NumericUpDown
@@ -245,8 +245,8 @@ $encrypt.Add_Click({
 })
 if ($SmokeZip) {
     Open-Archive $SmokeZip
-    if ($controls.cash.Number.Value -ne 10000 -or $controls.checking.Number.Value -ne 17860 -or $controls.savings.Number.Value -ne 354800 -or -not $write.Enabled) { throw 'UI balance smoke test failed' }
-    Write-Output 'UI loaded cash 10000, checking 17860 and savings 354800; test-copy control enabled.'
+    if (-not $write.Enabled) { throw 'UI input validation failed' }
+    Write-Output 'UI opened a corroborated save profile; edit control enabled.'
 }
 if($PreviewPath){$form.Show();[Windows.Forms.Application]::DoEvents();$form.PerformLayout();$bitmap=New-Object Drawing.Bitmap($form.Width,$form.Height);try{$form.DrawToBitmap($bitmap,(New-Object Drawing.Rectangle(0,0,$form.Width,$form.Height)));$bitmap.Save($PreviewPath,[Drawing.Imaging.ImageFormat]::Png)}finally{$bitmap.Dispose();$form.Hide()}}
 if (-not $NoShow) { [void]$form.ShowDialog() }

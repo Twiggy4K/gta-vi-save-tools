@@ -1,0 +1,5 @@
+'use strict';
+function fields(bytes){if(!Buffer.isBuffer(bytes)||bytes.length<20||bytes.readUInt32LE(0)!==0x46535000)throw Error('Invalid SFO');const count=bytes.readUInt32LE(16),keys=bytes.readUInt32LE(8),data=bytes.readUInt32LE(12);if(count>1024||20+count*16>bytes.length)throw Error('Invalid SFO index');const result=new Map();for(let i=0;i<count;i++){const at=20+i*16,k=keys+bytes.readUInt16LE(at),start=data+bytes.readUInt32LE(at+12),length=bytes.readUInt32LE(at+4),end=bytes.indexOf(0,k);if(k>=bytes.length||end<k||end>=data||start+length>bytes.length)throw Error('SFO bounds');const name=bytes.toString('utf8',k,end);if(result.has(name))throw Error('Duplicate SFO key');result.set(name,bytes.subarray(start,start+length));}return result;}
+function accountWireHex(bytes){const value=fields(bytes).get('ACCOUNT_ID');if(!value||value.length!==8)throw Error('Original account field missing');return value.toString('hex');}
+function equalFields(a,b){const x=fields(a),y=fields(b);return x.size===y.size&&[...x].every(([k,v])=>y.has(k)&&v.equals(y.get(k)));}
+module.exports={accountWireHex,equalFields};

@@ -58,3 +58,12 @@ Dates use America/Chicago. This repository begins as an archive of earlier local
 - Keep private inputs, samples and platform sidecars out of source and artifacts.
 - Bound checker inputs to 8 MiB per slot and 128 MiB combined ZIP candidates; refuse report overwrites, including input-save paths.
 - Label workshop code as experimental, profile-specific and dependent on undistributed runtime material.
+
+## 0.3.0-alpha.1 development — 2026-11-25
+
+- Add a runnable decoded-JSAV editor/ZIP workflow independent of private codec inputs.
+- Discover account roots and wallet/statistic relationships across inventories; remove fixed inventory count/positions, character code and original checking quantity from the writer.
+- Preserve uniquely corroborated statistic scopes and global ledger consistency; reject ambiguity.
+- Keep policy limits at cash 20,000 / checking 2M / savings 1M.
+- Add an optional, explicit-consent remote protocol adapter with user-owned API credentials and synthetic tests. No live online round-trip claim.
+- Preserve the distinction between a decoded edit and a restore-ready game/platform container.
