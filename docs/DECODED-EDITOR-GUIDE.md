@@ -30,13 +30,20 @@ The writer verifies the edited document and related money structures. It appends
 
 ## Optional browser processing
 
-1. Export from your complete original decoded ZIP.
-2. Click **3 Open GarlicSaves**. Sign in on the website, never in this editor. No worker key is needed by this handoff.
-3. The editor highlights **edited-decoded-save.zip**. Upload manually on the site's Encrypt page only if it supports this decoded format; keep the original account/profile.
-4. Download the encrypted result. Decrypt a copy using the website.
-5. Click **4 Check decrypted return ZIP** and select that decrypted download. Every file must match the intended package exactly. A mismatch blocks approval. Keep the encrypted result paired with its verification download.
+1. Decrypt your **original console export** on GarlicSaves. Download and keep that original decrypted ZIP untouched.
+2. If the decrypt result offers to add/save its account profile, complete that step. Check the Dashboard to confirm the profile is available before encrypting. Do not assume an older profile with a similar name belongs to this export.
+3. Open that complete original decoded ZIP in our editor. Review the slot/wallet, edit balances and export.
+4. Click **3 Open GarlicSaves**. Sign in on the website, never in this editor. No worker key is needed. The editor highlights **edited-decoded-save.zip**.
+5. On the website's Encrypt page, select the profile associated with the **original console save**, then upload the edited ZIP. Do not select a profile created only by decrypting an earlier incorrectly encrypted test.
+6. Download the encrypted result into a separate attempt folder. Decrypt a copy of **that exact download** and save its returned ZIP beside it. Do not reuse an older decrypted download.
+7. Click **4 Check decrypted return ZIP** in the same editor session. Select the new decrypted download. The game file and original account/support files must match. Only the known outer-folder prefix and regenerated chives sidecars may differ.
+8. If the comparison passes, keep that encrypted/decrypted pair together for your deliberate GarlicTransfer test. A pass does not prove gameplay acceptance or verify which file you transfer.
 
-**Browser encryption compatibility is pending an end-to-end test.** Earlier successful worker-API tests do not establish ordinary website behavior. A matching decrypted ZIP proves content equality, not which encrypted file was transferred or gameplay acceptance. No files are uploaded by the editor and no console restoration occurs. Website uploads share game/account metadata with that service. If the site rejects the export, stop; do not rename or force it.
+### If profiles appear duplicated or verification fails
+
+Our browser test produced two profiles whose account IDs were byte-reversed versions of each other. Selecting one changed the original ACCOUNT_ID bytes; selecting the other preserved them. This is an observed format/profile ambiguity, **not proof that the user made a mistake**. Do not guess, reverse an ID manually, or choose by a profile name's suffix. Stop on an account mismatch and compare against the original save's indexed ACCOUNT_ID field before retrying. Never restore the rejected container. Preserve your untouched local/cloud backups while cleaning up test downloads.
+
+A browser encrypt/decrypt round trip has now preserved the intended game data, original param.sfo, keystone and icon on one tested slot. Folder names and processing sidecars changed. This is one tested case, not universal compatibility or gameplay acceptance. The editor performs no upload or console restoration; manual website uploads share game/account metadata with that service.
 
 ## What remains experimental
 

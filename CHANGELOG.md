@@ -79,3 +79,9 @@ Dates use America/Chicago. This repository begins as an archive of earlier local
 - Removed public worker-key prompt and misleading Contribute link.
 - Added manual browser handoff and exact decrypted-return ZIP comparison.
 - Ordinary website encryption remains unverified; earlier API tests are not website acceptance.
+
+## 0.3.3-alpha.1
+
+- Document original-decrypt profile registration, profile ambiguity and paired-download verification.
+- Return comparison accepts only the observed outer prefix change and regenerated chives sidecars; account/support and game files must remain exact.
+- One browser round trip passed content/account checks; gameplay remains separate.

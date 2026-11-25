@@ -44,17 +44,35 @@ function Invoke-OnlineVerified([string]$Package,[string]$OutputDirectory,[string
 }
 
 function Test-BrowserReturn([string]$ExpectedZip,[string]$ReturnedZip,[string]$OutputDirectory){
-    $expected=[IO.Compression.ZipFile]::OpenRead($ExpectedZip);$returned=[IO.Compression.ZipFile]::OpenRead($ReturnedZip)
+    $expected=[IO.Compression.ZipFile]::OpenRead($ExpectedZip);$returned=$null
     try{
+        $returned=[IO.Compression.ZipFile]::OpenRead($ReturnedZip)
         foreach($archive in @($expected,$returned)){
             if($archive.Entries.Count -gt 512){throw 'Too many entries'}
             $names=@{};$total=0L;foreach($e in $archive.Entries){if($names.ContainsKey($e.FullName)){throw 'Duplicate archive path'};$names[$e.FullName]=$true;$total+=$e.Length;if($e.Length -gt 64MB -or $total -gt 128MB){throw 'Archive too large'}}
         }
-        $a=@($expected.Entries|Where-Object {-not $_.FullName.EndsWith('/')});$b=@($returned.Entries|Where-Object {-not $_.FullName.EndsWith('/')})
-        if($a.Count -ne $b.Count){throw 'Return ZIP entry count differs'}
-        foreach($e in $a){$other=$returned.GetEntry($e.FullName);if(-not $other -or $e.Length -ne $other.Length -or (Entry-Hash $e) -ne (Entry-Hash $other)){throw 'Returned content differs from the intended package'}}
+        $maps=@()
+        foreach($archive in @($expected,$returned)){
+            $map=@{};$slot=$null
+            foreach($e in $archive.Entries){
+                if($e.FullName.EndsWith('/')){continue}
+                if($e.FullName -notmatch '^(?:sdimg_)?SAVEDATA(SARC[0-9]{4})/(.+)$'){throw 'Unsupported return archive layout'}
+                $current=$matches[1];$relative=$matches[2]
+                if($slot -and $slot -ne $current){throw 'Use a single-slot export for browser verification'};$slot=$current
+                if($relative.Contains('\') -or ($relative -split '/') -contains '..' -or $map.ContainsKey($relative)){throw 'Unsafe or ambiguous return path'}
+                $map[$relative]=$e
+            }
+            if(-not $slot -or -not $map.ContainsKey($slot)){throw 'Missing game save entry'}
+            $maps+=,@{Slot=$slot;Files=$map}
+        }
+        if($maps[0].Slot -ne $maps[1].Slot){throw 'Returned slot differs'}
+        $a=$maps[0].Files;$b=$maps[1].Files
+        foreach($required in @($maps[0].Slot,'sce_sys/param.sfo','sce_sys/keystone','sce_sys/icon0.png')){if(-not $a.ContainsKey($required) -or -not $b.ContainsKey($required)){throw 'Missing required game or account/support file'}}
+        $ignored=@('chives.dat','chives.json')
+        foreach($name in $a.Keys){if($name -in $ignored){continue};if(-not $b.ContainsKey($name) -or $a[$name].Length -ne $b[$name].Length -or (Entry-Hash $a[$name]) -ne (Entry-Hash $b[$name])){if($name -eq 'sce_sys/param.sfo'){throw 'Account/support metadata differs. Check the website profile selected for encryption; DO NOT RESTORE.'};throw 'Returned game/support content differs from the intended package'}}
+        foreach($name in $b.Keys){if($name -notin $ignored -and -not $a.ContainsKey($name)){throw 'Unexpected return file'}}
         $record=@{decodedReturnMatches=$true;encryptedContainerBindingVerified=$false;restorationPerformed=$false;returnedZipHash=(Get-FileHash -LiteralPath $ReturnedZip).Hash.ToLowerInvariant()}
         $record|ConvertTo-Json|Set-Content -LiteralPath (Join-Path $OutputDirectory 'BROWSER-RETURN-CHECK.json') -Encoding UTF8
         return $record
-    }finally{$expected.Dispose();$returned.Dispose()}
+    }finally{$expected.Dispose();if($returned){$returned.Dispose()}}
 }
