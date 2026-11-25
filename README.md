@@ -58,3 +58,7 @@ The automated suite uses synthetic fixtures only. See [setup](docs/SETUP.md) and
 Our independently authored code and documentation are under [MIT](LICENSE). Forks and reuse are welcome with the license notice retained. This license does not grant rights to GTA VI, third-party tools, private game inputs, saves or trademarks. See [credits](CREDITS.md) and [third-party notices](THIRD-PARTY-NOTICES.md).
 
 This is an unofficial research project, unaffiliated with Rockstar Games, Take-Two, Sony, Microsoft or the developers of any PC build. No game or port is distributed. This clean-history public repository is separate from the original private research archive.
+
+### Portable Windows download (0.3.1-alpha.1)
+
+Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-click **Start-Editor.cmd**. Keep its runtime folder alongside the editor. Node.js 24.22.3 and its license notices are included; no separate installation or Codex subscription is needed. The source-only download still requires Node.js 22+. Other workflow and experimental limitations remain unchanged.

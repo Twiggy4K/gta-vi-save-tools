@@ -67,3 +67,9 @@ Dates use America/Chicago. This repository begins as an archive of earlier local
 - Keep policy limits at cash 20,000 / checking 2M / savings 1M.
 - Add an optional, explicit-consent remote protocol adapter with user-owned API credentials and synthetic tests. No live online round-trip claim.
 - Preserve the distinction between a decoded edit and a restore-ready game/platform container.
+
+## 0.3.1-alpha.1
+
+- Added Windows x64 portable packaging with verified official Node.js 24.22.3 and complete runtime license notices.
+- Launcher prefers bundled runtime and rejects versions below 22.
+- Updated extract-and-launch instructions; money processing is unchanged.

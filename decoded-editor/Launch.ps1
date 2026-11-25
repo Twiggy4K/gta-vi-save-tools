@@ -4,9 +4,11 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [Windows.Forms.Application]::EnableVisualStyles()
-$found=Get-Command node.exe -ErrorAction SilentlyContinue;$node=if($found){$found.Source}else{$null}
+$bundled=Join-Path $PSScriptRoot 'runtime\node.exe';$node=if(Test-Path -LiteralPath $bundled){$bundled}else{$null}
+if(-not $node){$found=Get-Command node.exe -ErrorAction SilentlyContinue;if($found){$node=$found.Source}}
 $local=Join-Path $PSScriptRoot 'runtime.local.json';if(-not $node -and (Test-Path -LiteralPath $local)){$node=(Get-Content -LiteralPath $local -Raw|ConvertFrom-Json).nodePath}
 if(-not $node -or -not(Test-Path -LiteralPath $node)){[void][Windows.Forms.MessageBox]::Show('Install Node.js 22 or newer, then reopen. No save was opened.','Node.js required');exit 1}
+$nodeVersion=& $node --version 2>$null;if($LASTEXITCODE -ne 0 -or $nodeVersion -notmatch '^v(\d+)\.' -or [int]$Matches[1] -lt 22){[void][Windows.Forms.MessageBox]::Show('Use the portable Windows download or install Node.js 22 or newer.','Compatible runtime required');exit 1}
 $script:inputFile=$null;$script:sourceZip=$null;$script:entryName=$null;$script:zipHash=$null;$script:selection=$null;$script:outputDirectory=$null;$script:outputPackage=$null;$script:verifiedOnline=$null;$script:loading=$false;$script:busy=$false
 $form=New-Object Windows.Forms.Form;$form.Text='GTA VI | Experimental Decoded Save Editor';$form.Size=New-Object Drawing.Size(980,710);$form.StartPosition='CenterScreen';$form.FormBorderStyle='FixedDialog';$form.MaximizeBox=$false;$form.Font=New-Object Drawing.Font('Segoe UI',10);$form.BackColor=[Drawing.Color]::FromArgb(17,21,32);$form.ForeColor=[Drawing.Color]::White
 function Label-Control([string]$Text,[int]$X,[int]$Y,[int]$W,[int]$H){$c=New-Object Windows.Forms.Label;$c.Text=$Text;$c.SetBounds($X,$Y,$W,$H);$form.Controls.Add($c);return $c}

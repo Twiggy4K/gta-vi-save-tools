@@ -2,14 +2,14 @@
 
 ## What this download does
 
-It changes supported money structures in an already decoded save, entirely on your PC. It needs Windows and Node.js 22+, but no game executable or private research files.
+It changes supported money structures in an already decoded save, entirely on your PC. The Windows x64 portable download includes Node.js. No separate Node installation, game executable or private research files are needed. Source-only downloads require Node.js 22+.
 
 **The exported JSAV/ZIP is not ready to restore to your PS5.** Game-level encoding and PlayStation container encryption remain separate. A processing service must explicitly support the decoded format. The optional online route passed one consented live encrypt/decrypt verification, including original account metadata. That is not a new gameplay/restoration test.
 
 ## Open and inspect
 
 1. Extract the editor ZIP with Windows Extract All. Keep all files together.
-2. Install Node.js 22 or newer from nodejs.org if needed.
+2. For Windows x64, use the **Portable** download: Node.js is included. Source-only downloads require Node.js 22+.
 3. Open Start-Editor.cmd in the top folder.
 4. Click **1 Open decoded save / ZIP**. Select your own decoded JSAV file or a decrypted ZIP containing decoded SARC entries. ASAV game files and encrypted console images are not decoded JSAV.
 5. If the ZIP contains multiple slots, select the one you intend to edit. No slot number is hardcoded.
@@ -48,3 +48,7 @@ Before ANY restoration test: verify the processed file by decrypting a copy thro
 The writer now avoids fixed inventory positions and original balances, but game semantics can differ by build and progression. The recognized item/slot specifications are not a proof that every save is supported. Reported PS5 gameplay tests and external Xbox-derived PC load/save/reload tests were conducted on specific earlier cases; they are not gameplay acceptance of this new generalized writer on everyone's saves.
 
 The conservative 2M checking and 1M savings caps are editor policies. We are not raising them based on screenshots alone. The local protected-ASAV codec still requires private runtime material; only the decoded writer is independent of those inputs today.
+
+### Portable Windows download (0.3.1-alpha.1)
+
+Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-click **Start-Editor.cmd**. Keep its runtime folder alongside the editor. Node.js 24.22.3 and its license notices are included; no separate installation or Codex subscription is needed. The source-only download still requires Node.js 22+. Other workflow and experimental limitations remain unchanged.
