@@ -1,0 +1,51 @@
+# GTA VI Save Tools
+
+**Public experimental source and a runnable read-only checker. Not a standalone universal save editor.**
+
+Developed and originally tested with PS5 story saves. An external tester, **0xSavior**, also reports successfully loading, saving and reloading a PS5-derived free-roam save in an Xbox-derived PC build. This is evidence for those samples and that build, not every Xbox game, PC port, game version or save.
+
+## What can I use today?
+
+| Component | Runs without private research inputs? | What it does |
+|---|---|---|
+| **Read-only checker** | **Yes** — Windows + Node.js | Inspects already decoded JSAV saves and supported ZIPs; creates a privacy-filtered report |
+| **Experimental workshop/editor source** | **No** | Profile-specific money edits, reconstruction and optional local GarlicMgr processing; private codec/runtime inputs are not distributed |
+
+**[Start with the plain-language guide](docs/USER-GUIDE.md).** Part A covers the checker. Part B documents supported private workshop installations, not a public one-click editor setup.
+
+### Run the checker
+
+1. Download the **checker ZIP** from [Releases](https://github.com/Twiggy4K/gta-vi-save-tools/releases), then use Windows **Extract All**.
+2. Install Node.js 22 or newer from [nodejs.org](https://nodejs.org/) if needed. Node.js is not bundled; no npm packages are needed.
+3. Double-click **Start-Checker.cmd** in the extracted package (or `checker/Start-Checker.cmd` in the source checkout).
+4. Click **Open decoded save or ZIP** and select an already decoded JSAV file or a ZIP containing decoded SARC entries.
+5. Review the result and use **Save shareable report**. Check the gameplay balances before sharing it.
+
+The checker cannot decrypt raw PS5 containers or protected ASAV game bodies. A platform-decrypted export may still contain ASAV. Recognition is never permission to edit or restore. Reports exclude direct account IDs, source paths, GUIDs, keys and save contents; they include balances and structural findings. Do not post private saves, sidecars or credentials in issues.
+
+## Demonstrated results and limits
+
+- Original PS5 reconstruction: five original trailers matched exactly; a sixth source decoded identically to its web-exported JSAV.
+- Profile-specific money changes: the maintainer reports retail PS5 loading and save/reload persistence for cash, shared checking and Family Savings changes.
+- Larger checking: an above-2M balance persisted in the edited state; the displayed 3.9M capacity is not established as a universal game limit.
+- Xbox-derived PC testing: the supplied original's body and trailer matched our reconstruction. Its rebuilt control loaded successfully according to 0xSavior. The PS5-derived version-2 probe loaded into free roam, then saved and reloaded according to the tester. The team did not independently run that build. New Xbox-side money edits and broad conversion remain unverified.
+- All gameplay samples remain private. No game binaries, saves, account IDs, keys, executable-derived lookup payloads or private listings are included.
+
+See [validation](docs/VALIDATION.md), [cross-platform evidence](docs/CROSS-PLATFORM-TEST.md), [known limitations](docs/RELEASE-READINESS.md) and the [detailed history](docs/DETAILED-RESEARCH-HISTORY.md).
+
+## Developers
+
+Node.js 22+, no npm dependencies:
+
+```sh
+npm run audit:source
+npm test
+```
+
+The automated suite uses synthetic fixtures only. See [setup](docs/SETUP.md) and [architecture](docs/ARCHITECTURE.md). The old `editor/` is a historical statistic-only prototype, not recommended restoration code. The current writer's known-profile assumptions must be generalized before enabling other users' saves.
+
+## License and credits
+
+Our independently authored code and documentation are under [MIT](LICENSE). Forks and reuse are welcome with the license notice retained. This license does not grant rights to GTA VI, third-party tools, private game inputs, saves or trademarks. See [credits](CREDITS.md) and [third-party notices](THIRD-PARTY-NOTICES.md).
+
+This is an unofficial research project, unaffiliated with Rockstar Games, Take-Two, Sony, Microsoft or the developers of any PC build. No game or port is distributed. This clean-history public repository is separate from the original private research archive.

@@ -1,0 +1,22 @@
+name: Read-only compatibility report
+description: Share checker findings without uploading a save or account information.
+title: "[Compatibility] "
+body:
+  - type: markdown
+    attributes:
+      value: "Do not attach saves, keys, account IDs, game files or private exports. Checker reports include gameplay balances: review them before posting. Recognition is not approval to edit or restore."
+  - type: textarea
+    id: environment
+    attributes:
+      label: Game version and save context
+      description: "Game build if known, platform/build type, manual or autosave, active character. No account identifiers."
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Reviewed checker report
+      description: "Paste only the shareable JSON report after reviewing it. Never paste the save itself."
+      render: json
+    validations:
+      required: true

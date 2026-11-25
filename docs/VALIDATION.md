@@ -1,0 +1,42 @@
+# Validation record — current through 2026-11-24
+
+## Evidence categories
+
+Synthetic tests, private original-sample checks, local generated-file checks, container round trips, and maintainer-reported retail gameplay tests are separate. CI does not run private saves or establish console acceptance.
+
+## Reconstruction baseline
+
+- 34 original synthetic unit tests passed locally; rerun with `npm test`.
+- Five original ASAV bodies decoded to JSAV v3 with 82 indexed blocks each; all five original 32-byte trailers reproduced exactly.
+- Independent liblz4 compatibility, byte-identical no-op behavior, 15 baseline local edits and 2,144 slot-normalization round trips were recorded in the historical research.
+- The latest sixth original ASAV matched the local container export byte-for-byte, and its own decoding exactly matched the web-provided JSAV.
+
+## Current writer and packaging
+
+- Nine initial inventory/mirror/ledger-consistent local cases passed for the latest sample.
+- Sixteen experimental-increases cases passed, including cap boundaries. Existing numeric tokens outside allowed edits were preserved; original samples were unchanged.
+- Corrected a PowerShell argument-construction defect that produced Invalid options.
+- The first package failed local CoW encryption because the web export lacked PS5IMAGE. Re-decrypting the original container locally supplied PS5IMAGE, PS5KEY and PS5PARAM_SIZE. Only the edited game file was replaced; supporting files remained byte-identical.
+- The encrypted reduction result was re-decrypted and its recovered ASAV matched the intended edit exactly, with original param.sfo, keystone and icon unchanged.
+- A later experimental package was verified to contain 20,000 cash / 2,000,000 checking / 490,000 savings. Do not relabel that particular test as 1,000,000 savings.
+- The guided workshop's real local encryption/return-file verification passed using an unchanged source copy: 10,000 / 17,860 / 354,800. No retail restoration was performed by the automated integration test.
+
+## Maintainer-reported retail acceptance
+
+The maintainer restored the inventory-consistent edit to a stock retail PS5, manually loaded the target slot and confirmed 9,900 cash, 17,760 checking and 354,700 Family Savings. The maintainer then reported all edited amounts persisted after manual saving and reloading.
+
+An initial apparent failure was loading the autosave instead of the edited manual slot. A file-path mismatch was investigated, but settings showed both active paths pointing at the profile containing the edited file; the earlier mismatch explanation was withdrawn.
+
+Later, a screenshot displayed 2,001,000 checking and a 3.9M displayed capacity, followed by a maintainer report that the balance persisted after save/reload. This is evidence of one accepted above-2M balance. It does not independently establish the cause of the displayed capacity, universal checking capacity, or 1M savings acceptance. Detailed per-transaction/max-cap behavior remains to be corroborated from fresh exports.
+
+## Read-only checker
+
+Ten synthetic tests passed: encoded/unknown/malformed input rejection, inventory discovery without a 21-inventory assumption, exact unsafe GUID handling, duplicate GUID/invalid parent rejection, ledger inconsistency detection, private-canary exclusion and unchanged-input checks. Six preserved decoded samples were inspected; their original source files remained unchanged. GUI ZIP inspection passed. An externally supplied Xbox-labelled sample was subsequently decoded and verified locally; see CROSS-PLATFORM-TEST.md.
+
+## Not established
+
+Universal write compatibility; automatic character ownership mapping; every campaign tier/build; unrestricted container capacity; broad independent reproduction across users; public codec independence; general Xbox/PC acceptance beyond the one externally reported build; online-only encryption/restoration; priority over existing projects. Historical field-only editor outputs are not promoted to accepted edits.
+
+## External load/save/reload evidence — 2026-11-25
+
+0xSavior reports their rebuilt Prologue control loads, and the PS5-derived ASAV-v2 probe loads into free roam and can save/reload in their Xbox-derived PC build. Local checks reproduced the original Xbox-labelled trailer, verified exact decoded control content and restricted probe changes to version/checksum/trailer. No source sample is public. See [full evidence and limitations](CROSS-PLATFORM-TEST.md).
