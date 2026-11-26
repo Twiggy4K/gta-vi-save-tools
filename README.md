@@ -92,3 +92,5 @@ Local GarlicMgr can export a PS5-decrypted container whose game file still begin
 Nested exports such as PPSAxxxxx/sdimg_SAVEDATASARC0000/SARC0000 are recognized. On ZIP export the leading title-ID folder is removed for the browser handoff; save-relative content and support files are preserved. Raw JSAV exports alone still lack the support metadata needed for website encryption.
 
 Tests: 70 automated checks total, including six new stash/error cases. Six privately held decoded samples passed experimental decrease/reparse and exact no-op checks; originals were not modified or uploaded. In-game stash load/save/reload acceptance remains REQUIRED before claiming supported gameplay. No private saves, identifiers or sample hashes are published.
+
+**Stash test update (2026-11-26):** one external volunteer reports the prepared early-game stash edit loaded and survived save/reload. Game-level rebuilding used private local research tooling; the public preview still requires separately decoded JSAV and does not bundle an ASAV decoder. See validation history for scope.

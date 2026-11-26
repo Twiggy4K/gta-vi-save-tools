@@ -11,3 +11,9 @@ Public source references: independently observed local save structures, plus own
 - Experimental editor preserves banking values when stash is present and only edits corroborated existing fields. Six private samples passed local decrease/reparse/no-op checks. Gameplay acceptance remains untested.
 
 No private runtime decoder material is distributed. Format detection and nested ZIP recognition do not perform ASAV decryption.
+
+## External stash gameplay confirmation — 2026-11-26
+
+The owner relayed volunteer confirmation that the prepared PPSA38500 early-game test loaded with 20,000 bed stash and zero on-hand cash, then retained the values after saving and reloading. The volunteer reported resigning it to a second account. This is externally reported acceptance for one sample, not an independently observed console session or general resigning compatibility.
+
+The game-level ASAV in that test was rebuilt with the maintainer’s private local codec; the public preview still does not distribute an ASAV decoder. The tested scalar edit is the experimental stash writer’s output. No missing cash wallet was created, and bank/savings remained unchanged. Keep broader stash support experimental pending additional samples. This supersedes earlier blanket statements that no stash gameplay test had occurred, while preserving their historical timing.

@@ -81,3 +81,9 @@ Local GarlicMgr can export a PS5-decrypted container whose game file still begin
 Nested exports such as PPSAxxxxx/sdimg_SAVEDATASARC0000/SARC0000 are recognized. On ZIP export the leading title-ID folder is removed for the browser handoff; save-relative content and support files are preserved. Raw JSAV exports alone still lack the support metadata needed for website encryption.
 
 Tests: 70 automated checks total, including six new stash/error cases. Six privately held decoded samples passed experimental decrease/reparse and exact no-op checks; originals were not modified or uploaded. In-game stash load/save/reload acceptance remains REQUIRED before claiming supported gameplay. No private saves, identifiers or sample hashes are published.
+
+## External stash gameplay confirmation — 2026-11-26
+
+The owner relayed volunteer confirmation that the prepared PPSA38500 early-game test loaded with 20,000 bed stash and zero on-hand cash, then retained the values after saving and reloading. The volunteer reported resigning it to a second account. This is externally reported acceptance for one sample, not an independently observed console session or general resigning compatibility.
+
+The game-level ASAV in that test was rebuilt with the maintainer’s private local codec; the public preview still does not distribute an ASAV decoder. The tested scalar edit is the experimental stash writer’s output. No missing cash wallet was created, and bank/savings remained unchanged. Keep broader stash support experimental pending additional samples. This supersedes earlier blanket statements that no stash gameplay test had occurred, while preserving their historical timing.
