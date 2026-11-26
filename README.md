@@ -78,3 +78,17 @@ Before encrypting, add/save the profile offered when decrypting the original con
 ## Critical transfer step
 
 After the decrypted-return check passes, extract the **encrypted website download** and choose its **SAVEDATASARC0011** container (slot 11 example) in GarlicTransfer. **Never upload SARC0011 from a decrypted ZIP.** Keep Original, Edited, Encrypted and Verification folders separate. Confirm target balances before encryption and after verification. Read the full guide before transferring.
+
+## Experimental stash preview — 0.5.0-stash-preview.1
+
+This separate prerelease adds **Bed stash** handling for supported decoded early-game layouts. It is not stash gameplay-validated. Keep the previously tested 0.4 beta available for bank-era workflows.
+
+The selected stash must have a unique registered container relationship and a uniquely corroborated character-statistic relationship. Cash is separate; if no cash wallet exists its field stays disabled and zero. Checking and Family Savings remain read-only whenever the experimental stash profile is active—even if those accounts already exist. The profile is selected by structure, never chapter number.
+
+Stash edits use a conservative 20,000 policy ceiling (or the current original amount if higher, without further increases). This is NOT a discovered stash capacity. Only matching current combined-money mirrors are updated; stale unmatched records are preserved. Unsupported/ambiguous layouts remain blocked. No wallet/container creation occurs in this profile.
+
+Local GarlicMgr can export a PS5-decrypted container whose game file still begins with ASAV. This editor now explains that second layer rather than treating it as JSAV. The tested website route can supply JSAV, but users must consent to third-party processing. No private decoder/game inputs are included or automatically downloaded. Decoding ASAV alone does not guarantee a supported edit layout.
+
+Nested exports such as PPSAxxxxx/sdimg_SAVEDATASARC0000/SARC0000 are recognized. On ZIP export the leading title-ID folder is removed for the browser handoff; save-relative content and support files are preserved. Raw JSAV exports alone still lack the support metadata needed for website encryption.
+
+Tests: 70 automated checks total, including six new stash/error cases. Six privately held decoded samples passed experimental decrease/reparse and exact no-op checks; originals were not modified or uploaded. In-game stash load/save/reload acceptance remains REQUIRED before claiming supported gameplay. No private saves, identifiers or sample hashes are published.

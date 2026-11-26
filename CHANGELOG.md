@@ -96,3 +96,10 @@ Documented the observed Add-to-profile byte-order mismatch, conditional Dashboar
 - Replaced temporary blanket restoration warnings with sample-scoped validation.
 - Clarified website Swap Endian, separate attempt folders, target-balance checks and encrypted SAVEDATASARC container selection.
 - Money algorithms unchanged; broader compatibility remains experimental.
+
+## 0.5.0-stash-preview.1
+
+- Experimental separate stash/cash mapping; bank fields read-only in stash mode.
+- Preserve missing cash wallets and stale unmatched mirrors; no chapter heuristic.
+- Actionable ASAV error and nested title-folder ZIP support.
+- 70 automated checks; six local private-sample experiments; no stash gameplay-validation claim.
