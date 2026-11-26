@@ -6,17 +6,18 @@ if($out.StartsWith($root.TrimEnd('\')+'\',[StringComparison]::OrdinalIgnoreCase)
 [void][IO.Directory]::CreateDirectory($out)
 $portable=-not [string]::IsNullOrWhiteSpace($NodeDirectory)
 if($portable){foreach($required in @('node.exe','LICENSE')){if(-not(Test-Path -LiteralPath (Join-Path $NodeDirectory $required))){throw 'Official Node directory must contain node.exe and LICENSE'}}}
-$name=if($portable){'GTA6-Decoded-Editor-0.5.0-stash-preview.1-Windows-x64-Portable.zip'}else{'GTA6-Decoded-Editor-0.5.0-stash-preview.1-Windows-Source.zip'}
+$name=if($portable){'GTA6-Decoded-Editor-0.5.1-stash-preview.1-Windows-x64-Portable.zip'}else{'GTA6-Decoded-Editor-0.5.1-stash-preview.1-Windows-Source.zip'}
 $target=Join-Path $out $name
 $stream=[IO.File]::Open($target,[IO.FileMode]::CreateNew);$zip=New-Object IO.Compression.ZipArchive($stream,[IO.Compression.ZipArchiveMode]::Create)
 try{
-    $files=@('LICENSE','CREDITS.md','THIRD-PARTY-NOTICES.md','SECURITY.md','checker/inventory-model.cjs','research/jsav-document.cjs','research/lz4-encode.cjs','header/header-codec.cjs','workshop/inventory-profile.cjs','workshop/money-core.cjs','workshop/expand-inventory.cjs','workshop/hash.cjs')
+    $files=@('README.md','LICENSE','CREDITS.md','THIRD-PARTY-NOTICES.md','SECURITY.md','checker/inventory-model.cjs','research/jsav-document.cjs','research/lz4-encode.cjs','header/header-codec.cjs','workshop/inventory-profile.cjs','workshop/money-core.cjs','workshop/expand-inventory.cjs','workshop/hash.cjs')
     $files+=Get-ChildItem -LiteralPath (Join-Path $root 'decoded-editor') -File|Where-Object {$_.Extension -in @('.ps1','.cmd','.cjs','.md')}|ForEach-Object {'decoded-editor/'+$_.Name}
     $files+=Get-ChildItem -LiteralPath (Join-Path $root 'docs') -File -Filter '*.md'|ForEach-Object {'docs/'+$_.Name}
+    $files+='docs/START-HERE.html'
     foreach($name in $files){$entry=$zip.CreateEntry($name,[IO.Compression.CompressionLevel]::Optimal);$source=[IO.File]::OpenRead((Join-Path $root $name));$dest=$entry.Open();try{$source.CopyTo($dest)}finally{$source.Dispose();$dest.Dispose()}}
     if($portable){foreach($pair in @(@('node.exe','decoded-editor/runtime/node.exe'),@('LICENSE','decoded-editor/runtime/LICENSE'))){[IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip,(Join-Path $NodeDirectory $pair[0]),$pair[1],[IO.Compression.CompressionLevel]::Optimal)|Out-Null}}
     foreach($extra in @(@('Start-Editor.cmd',"@echo off`r`ncall `"%~dp0decoded-editor\Start-Editor.cmd`"`r`n"),@('README.txt',@'
-GTA VI DECODED SAVE EDITOR — EXPERIMENTAL 0.5.0-stash-preview.1
+GTA VI DECODED SAVE EDITOR — EXPERIMENTAL 0.5.1-stash-preview.1
 
 Extract All, then open Start-Editor.cmd.
 The Windows-x64-Portable download includes Node.js; no separate install needed.
@@ -34,7 +35,8 @@ One controlled PS5 load/save/reload test passed. Other saves remain experimental
 No private codec inputs, game files, saves or keys are bundled or downloaded.
 No automatic upload or console restoration occurs.
 
-Read docs/DECODED-EDITOR-GUIDE.md before using output files.
+START HERE: open docs/START-HERE.html for the numbered HOW-TO.
+Do not transfer decrypted SARC files; use the encrypted SAVEDATASARC container.
 MIT license and credits are included. Keep original backups untouched.
 '@))){$dest=$zip.CreateEntry($extra[0]).Open();$writer=New-Object IO.StreamWriter($dest,(New-Object Text.UTF8Encoding($false)));try{$writer.Write($extra[1])}finally{$writer.Dispose()}}
 }finally{$zip.Dispose();$stream.Dispose()}

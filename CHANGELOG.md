@@ -103,3 +103,10 @@ Documented the observed Add-to-profile byte-order mismatch, conditional Dashboar
 - Preserve missing cash wallets and stale unmatched mirrors; no chapter heuristic.
 - Actionable ASAV error and nested title-folder ZIP support.
 - 70 automated checks; six local private-sample experiments; no stash gameplay-validation claim.
+
+## 0.5.1-stash-preview.1
+
+- Replaced the technical-first README with a prominent editor download and START HERE how-to.
+- Added exact file choices, expected results, stop conditions, folder organization and support questions.
+- Window title now shows the version; old guides retained as explicitly advanced/legacy references.
+- Clarified observed stash support, ASAV decoding boundary, website Swap Endian and transfer-handshake limitations. Money algorithms unchanged.

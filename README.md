@@ -1,96 +1,54 @@
-> **PS5 workflow validated on one tested save — 2026-11-25:** The maintainer confirmed the public decoded editor → GarlicSaves website encryption → GarlicTransfer workflow loaded the intended balances in-game and preserved them after saving and reloading. This is one-console/sample evidence, not universal compatibility. Keep untouched backups and verify every return.
+# GTA VI Save Editor — START HERE
 
-# GTA VI Save Tools
+Edit supported **story-mode** cash, checking, Family Savings and bed stash values on your PC.
 
-**Public experimental tools: a runnable decoded-save editor, a read-only checker, and research source. Not a universal restore-ready editor.**
+## 1. Download the current editor
 
-Developed and originally tested with PS5 story saves. An external tester, **0xSavior**, also reports successfully loading, saving and reloading a PS5-derived free-roam save in an Xbox-derived PC build. This is evidence for those samples and that build, not every Xbox game, PC port, game version or save.
+**[DOWNLOAD THE WINDOWS PORTABLE EDITOR](https://github.com/Twiggy4K/gta-vi-save-tools/releases/tag/v0.5.1-stash-preview.1)**
 
-## What can I use today?
+Under **Assets**, choose **GTA6-Decoded-Editor-0.5.1-stash-preview.1-Windows-x64-Portable.zip**. **Do not choose “Source code” or the checker.** Right-click → **Extract All** → open **Start-Editor.cmd**. Node.js is included.
 
-| Component | Runs without private research inputs? | What it does |
+**Close old editor windows.** The new window title says **0.5.1-stash-preview.1**, and it includes a **Bed stash** field. Older three-field editors can reject early-game saves.
+
+## 2. Follow the HOW-TO
+
+# [HOW TO USE IT — STEP-BY-STEP GUIDE](docs/START-HERE.md)
+
+**Back up → get your story save → decrypt → edit → encrypt → verify → transfer → save/reload.**
+
+You need your own save, Windows x64, GarlicTransfer and compatible decoding/encryption. The tested website route needs GarlicSaves sign-in and shares your uploaded save/account metadata with that service; you do not need your own jailbroken PS5 for that route. Local GarlicMgr exports may need another game-level decoding step. Our editor does not bundle an ASAV decoder or request a worker key.
+
+## Three things to get right
+
+1. **Choose a story save:** its entry contains **SAVEDATASARC**. Not Player, SettingsProfileSettings or sce_sdmemory.
+2. **Encrypt the editor's output:** upload **edited-decoded-save.zip**, not the original decrypted ZIP. If the website reversed your profile ID, follow the guide's conditional **Swap Endian** steps.
+3. **Transfer the encrypted container:** use **SAVEDATASARC… from the encrypted download**. Never transfer **SARC… from a decrypted ZIP**.
+
+Keep separate **Original**, **Edited**, **Encrypted**, and **Verification** folders. Keep untouched recovery backups.
+
+## What can I edit?
+
+| Supported layout | Editable amounts | Limits |
 |---|---|---|
-| **Read-only checker** | **Yes** — Windows + Node.js | Inspects already decoded JSAV saves and supported ZIPs; creates a privacy-filtered report |
-| **Decoded-save editor preview** | **Yes** — Windows + Node.js | Local JSAV money editing and ZIP export; game encoding/container encryption still required |
-| **Legacy local-ASAV workshop source** | **No** | Protected-ASAV reconstruction/local GarlicMgr processing still requires undistributed codec inputs |
+| Bank-era save | Cash, checking, Family Savings | 20,000 / 2M / 1M |
+| Experimental stash save | Bed stash and an existing supported cash wallet | Stash preview policy 20,000; cash 20,000 |
 
-**[Start with the plain-language guide](docs/USER-GUIDE.md).** Part A covers the checker. For the new decoded writer, follow the [decoded editor guide](docs/DECODED-EDITOR-GUIDE.md). Part B of the older guide documents the legacy private-ASAV workshop.
+In stash mode, bank/savings stay read-only. Missing cash wallets are not created. Unknown or ambiguous layouts refuse editing. The stash policy is not a verified game maximum.
 
-### Run the checker
+## Stuck or seeing disabled boxes?
 
-1. Download the **checker ZIP** from [Releases](https://github.com/Twiggy4K/gta-vi-save-tools/releases), then use Windows **Extract All**.
-2. Install Node.js 22 or newer from [nodejs.org](https://nodejs.org/) if needed. Node.js is not bundled; no npm packages are needed.
-3. Double-click **Start-Checker.cmd** in the extracted package (or `checker/Start-Checker.cmd` in the source checkout).
-4. Click **Open decoded save or ZIP** and select an already decoded JSAV file or a ZIP containing decoded SARC entries.
-5. Review the result and use **Save shareable report**. Check the gameplay balances before sharing it.
+**[Troubleshooting and what to send us](docs/START-HERE.md#need-help-send-these-details)**
 
-The checker cannot decrypt raw PS5 containers or protected ASAV game bodies. A platform-decrypted export may still contain ASAV. Recognition is never permission to edit or restore. Reports exclude direct account IDs, source paths, GUIDs, keys and save contents; they include balances and structural findings. Do not post private saves, sidecars or credentials in issues.
+ASAV means the game file still needs decoding. An ambiguous mapping means this layout is not confidently supported—it does not mean you should force the values. Tell us the editor version, error and displayed game balances. Never post private saves, account IDs or keys publicly.
 
-## Run the decoded editor preview
+## Tested results and limits
 
-Download **Windows-x64-Portable.zip** from [Releases](https://github.com/Twiggy4K/gta-vi-save-tools/releases), choose **Extract All**, then open **Start-Editor.cmd**. Node.js is included. Source-only checkouts require Node.js 22+. Open your own already decoded JSAV or a decoded export ZIP, select a slot/wallet, review the original balances, then export a separate edit. It needs no maintainer save, account data, game executable or private codec inputs for this step.
+A controlled PS5 bank-workflow test loaded the edits and preserved them after saving/reloading. An external volunteer also reported stash edit persistence; that sample used private local game-level rebuilding. Neither establishes support for every save. The separate **0xSavior** report of a PS5-derived save loading/saving/reloading in an Xbox-derived PC build does not establish general bidirectional conversion or retail Xbox support.
 
-Caps: cash **0–20,000**, checking **0–2,000,000**, Family Savings **0–1,000,000**. Accounts are found by relationships across inventories, not fixed positions, original amounts or character codes. Ambiguous mappings and unknown capacities stop editing rather than guessing.
+**70 automated checks pass.** Private samples and game-derived runtime inputs are not published. See [validation](docs/VALIDATION.md), [findings](docs/CURRENT-FINDINGS.md), [stash research](docs/STASH-RESEARCH.md), and [changelog](CHANGELOG.md).
 
-**Output is still decoded JSAV, not a restore-ready ASAV or PS5 container.** The browser handoff opens GarlicSaves for manual sign-in/upload without a worker key. The website route passed a controlled retail PS5 load/save/reload test on one slot; the return comparison checks a user-provided decrypted ZIP. See the [full guide](docs/DECODED-EDITOR-GUIDE.md).
+## Developers and older tools
 
-## Demonstrated results and limits
+Source-only checkouts require Node.js 22+. Run the test command in [package.json](package.json). The read-only checker is separate from the editor. [Architecture](docs/ARCHITECTURE.md) · [advanced/historical workflow](docs/ADVANCED-WORKFLOW.md) · [legacy guide](docs/LEGACY-WORKFLOWS.md).
 
-- Original PS5 reconstruction: five original trailers matched exactly; a sixth source decoded identically to its web-exported JSAV.
-- Profile-specific money changes: the maintainer reports retail PS5 loading and save/reload persistence for cash, shared checking and Family Savings changes.
-- Larger checking: an above-2M balance persisted in the edited state; the displayed 3.9M capacity is not established as a universal game limit.
-- Xbox-derived PC testing: the supplied original's body and trailer matched our reconstruction. Its rebuilt control loaded successfully according to 0xSavior. The PS5-derived version-2 probe loaded into free roam, then saved and reloaded according to the tester. The team did not independently run that build. New Xbox-side money edits and broad conversion remain unverified.
-- All gameplay samples remain private. No game binaries, saves, account IDs, keys, executable-derived lookup payloads or private listings are included.
-
-See [validation](docs/VALIDATION.md), [cross-platform evidence](docs/CROSS-PLATFORM-TEST.md), [known limitations](docs/RELEASE-READINESS.md) and the [detailed history](docs/DETAILED-RESEARCH-HISTORY.md).
-
-## Developers
-
-Node.js 22+, no npm dependencies:
-
-```sh
-npm run audit:source
-npm test
-```
-
-The automated suite uses synthetic fixtures only. See [setup](docs/SETUP.md) and [architecture](docs/ARCHITECTURE.md). The old `editor/` is a historical statistic-only prototype, not recommended restoration code. The generalized writer rejects unsupported or ambiguous layouts. Other users' saves still need compatibility and backed-up acceptance testing.
-
-## License and credits
-
-Our independently authored code and documentation are under [MIT](LICENSE). Forks and reuse are welcome with the license notice retained. This license does not grant rights to GTA VI, third-party tools, private game inputs, saves or trademarks. See [credits](CREDITS.md) and [third-party notices](THIRD-PARTY-NOTICES.md).
-
-This is an unofficial research project, unaffiliated with Rockstar Games, Take-Two, Sony, Microsoft or the developers of any PC build. No game or port is distributed. This clean-history public repository is separate from the original private research archive.
-
-### Portable Windows download (0.3.1-alpha.1)
-
-Choose **Windows-x64-Portable.zip** in Releases, use Extract All, and double-click **Start-Editor.cmd**. Keep its runtime folder alongside the editor. Node.js 24.22.3 and its license notices are included; no separate installation or Codex subscription is needed. The source-only download still requires Node.js 22+. Other workflow and experimental limitations remain unchanged.
-
-### 0.3.2 browser handoff correction
-
-The public UI no longer requests worker/API keys or directs users to Contribute. **Open GarlicSaves** opens the normal Encrypt page for manual sign-in/upload. One browser-based PS5 load/save/reload test passed. Historical API tests are separate. Source-only developer API helpers remain experimental and are not required by the UI.
-
-### Website account-profile selection
-
-Before encrypting, add/save the profile offered when decrypting the original console export, and select the corresponding profile on Encrypt. Do not assume a previously stored profile is correct. Byte-reversed duplicate profiles occurred in testing; stop on mismatched account metadata rather than guessing. Follow the profile troubleshooting and exact-download round-trip steps in [the guide](docs/DECODED-EDITOR-GUIDE.md). The same controlled PS5 test passed content/account comparison, game loading, saving and reloading.
-
-**Website profile warning:** Add to profile may save the ID in reversed byte order. Compare with the original decrypt job; use Dashboard → profile three-dot menu → **Swap Endian** only when that specific reversal is confirmed. Re-encrypt and verify a decrypted return. See the detailed guide; this was not observed as necessary in our local GarlicMgr tests.
-
-## Critical transfer step
-
-After the decrypted-return check passes, extract the **encrypted website download** and choose its **SAVEDATASARC0011** container (slot 11 example) in GarlicTransfer. **Never upload SARC0011 from a decrypted ZIP.** Keep Original, Edited, Encrypted and Verification folders separate. Confirm target balances before encryption and after verification. Read the full guide before transferring.
-
-## Experimental stash preview — 0.5.0-stash-preview.1
-
-This separate prerelease adds **Bed stash** handling for supported decoded early-game layouts. It is not stash gameplay-validated. Keep the previously tested 0.4 beta available for bank-era workflows.
-
-The selected stash must have a unique registered container relationship and a uniquely corroborated character-statistic relationship. Cash is separate; if no cash wallet exists its field stays disabled and zero. Checking and Family Savings remain read-only whenever the experimental stash profile is active—even if those accounts already exist. The profile is selected by structure, never chapter number.
-
-Stash edits use a conservative 20,000 policy ceiling (or the current original amount if higher, without further increases). This is NOT a discovered stash capacity. Only matching current combined-money mirrors are updated; stale unmatched records are preserved. Unsupported/ambiguous layouts remain blocked. No wallet/container creation occurs in this profile.
-
-Local GarlicMgr can export a PS5-decrypted container whose game file still begins with ASAV. This editor now explains that second layer rather than treating it as JSAV. The tested website route can supply JSAV, but users must consent to third-party processing. No private decoder/game inputs are included or automatically downloaded. Decoding ASAV alone does not guarantee a supported edit layout.
-
-Nested exports such as PPSAxxxxx/sdimg_SAVEDATASARC0000/SARC0000 are recognized. On ZIP export the leading title-ID folder is removed for the browser handoff; save-relative content and support files are preserved. Raw JSAV exports alone still lack the support metadata needed for website encryption.
-
-Tests: 70 automated checks total, including six new stash/error cases. Six privately held decoded samples passed experimental decrease/reparse and exact no-op checks; originals were not modified or uploaded. In-game stash load/save/reload acceptance remains REQUIRED before claiming supported gameplay. No private saves, identifiers or sample hashes are published.
-
-**Stash test update (2026-11-26):** one external volunteer reports the prepared early-game stash edit loaded and survived save/reload. Game-level rebuilding used private local research tooling; the public preview still requires separately decoded JSAV and does not bundle an ASAV decoder. See validation history for scope.
+MIT for our independently written source; forks welcome. [License](LICENSE) · [credits](CREDITS.md) · [third-party notices](THIRD-PARTY-NOTICES.md). No affiliation with game/platform publishers. No saves, credentials, game executables or private codec inputs are bundled.
